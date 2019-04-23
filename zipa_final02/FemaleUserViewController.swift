@@ -57,9 +57,27 @@ class FemaleUserViewController: UIViewController {
     }
     
     @IBAction func topButtonPressed(_ sender: Any) {
-        let output = global.queryWomenTopTable(waistParam: tempUser.tempWaist)
+        let output = global.queryWomenTopTable(bustParam: tempUser.tempBust)
         print(output)
         displayLabel.text = output
     }
     
+    @IBAction func dressButtonPressed(_ sender: Any) {
+        let output = global.queryDressTable(hipsParam: tempUser.tempHips)
+        print(output)
+        displayLabel.text = output
+    }
+    
+    @IBAction func trouserButtonPressed(_ sender: Any) {
+        let output = global.queryDressTable(hipsParam: tempUser.tempHips)
+        print(output)
+        displayLabel.text = output
+    }
+    
+    @IBAction func braButtonPressed(_ sender: Any) {
+        print("bra button still to be finished")
+       // let output = global.queryWomenBraTable(waistParam: tempUser.tempWaist)
+       // print(output)
+       // displayLabel.text = output
+    }
 }

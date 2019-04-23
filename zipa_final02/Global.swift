@@ -31,8 +31,6 @@ class Global {
     
     //women garment tables
     let dress = Table("dress")
-    let womenTop = Table("womenTop")
-    let womenTrouser = Table("womenTrouser")
     let braStrap = Table("braStrap")
     let bra = Table("bra")
     
@@ -43,8 +41,6 @@ class Global {
     
     //women variables to hold current input
     var dressTemp = "test"
-    var womenTopTemp = "test"
-    var womenTrouserTemp = "test"
     var braTemp = "test"
 
     //create a file path on users device to stored static database for all garments (men & women)
@@ -308,7 +304,7 @@ class Global {
         print("---------------------------------------------------")
         print("drop tables if they already exist")
         do{
-            try db.run(womenTop.drop(ifExists: true))
+            try db.run(dress.drop(ifExists: true))
             print("women-top table dropped")
         } catch {
             print("error dropping women-top table")
@@ -317,50 +313,50 @@ class Global {
         print("creating women garment tables")
         print("---------------------------------------------------")
         //create women-top table
-        let createWomenTopTable = womenTop.create { (table) in
+        let createDressTable = dress.create { (table) in
             //add value/properties into table
             table.column(self.size)
             table.column(self.bust)
             table.column(self.waist)
+            table.column(self.hips)
         }
         
         //run create statements for all men garment tables
         do{
-            try self.db.run(createWomenTopTable)
-            print("Created women-top table successfully")
+            try self.db.run(createDressTable)
+            print("Created women-dress table successfully")
         } catch {
-            print("Error creating women-top table")
+            print("Error creating women-dress table")
         }
     }
     
     //POPULATE
     func populateWomenTables() {
         print("---------------------------------------------------")
-        print("populating men garment tables")
+        print("populating women garment tables")
         do{
-            try db.run(womenTop.delete())
+            try db.run(dress.delete())
         } catch {
-            print("Error deleting content of women-top")
+            print("Error deleting content of women tables")
         }
-        
-        //populate women-top table
+    
+        //populate women-dress table - can be used for women-tops, women-trouser, and women-dress
         do{
-            try self.db.run(womenTop.insert(self.bust <- 73, self.waist <- 55, self.size <- "2"))
-            try self.db.run(womenTop.insert(self.bust <- 76, self.waist <- 58, self.size <- "4"))
-            try self.db.run(womenTop.insert(self.bust <- 78, self.waist <- 60, self.size <- "6"))
-            try self.db.run(womenTop.insert(self.bust <- 81, self.waist <- 63, self.size <- "8"))
-            try self.db.run(womenTop.insert(self.bust <- 86, self.waist <- 68, self.size <- "10"))
-            try self.db.run(womenTop.insert(self.bust <- 91, self.waist <- 73, self.size <- "12"))
-            try self.db.run(womenTop.insert(self.bust <- 96, self.waist <- 78, self.size <- "14"))
-            try self.db.run(womenTop.insert(self.bust <- 101, self.waist <- 83, self.size <- "16"))
-            try self.db.run(womenTop.insert(self.bust <- 109, self.waist <- 91, self.size <- "18"))
-            try self.db.run(womenTop.insert(self.bust <- 116, self.waist <- 98, self.size <- "20"))
-            try self.db.run(womenTop.insert(self.bust <- 123, self.waist <- 105, self.size <- "22"))
-            try self.db.run(womenTop.insert(self.bust <- 130, self.waist <- 112, self.size <- "24"))
-            try self.db.run(womenTop.insert(self.bust <- 137, self.waist <- 119, self.size <- "26"))
-            try self.db.run(womenTop.insert(self.bust <- 144, self.waist <- 129, self.size <- "28"))
-            try self.db.run(womenTop.insert(self.bust <- 151, self.waist <- 133, self.size <- "30"))
-            print("successfully populated women-top table")
+            try self.db.run(dress.insert(self.bust <- 73, self.waist <- 55, self.hips <- 80, self.size <- "2"))
+            try self.db.run(dress.insert(self.bust <- 76, self.waist <- 58, self.hips <- 83, self.size <- "4"))
+            try self.db.run(dress.insert(self.bust <- 78, self.waist <- 63, self.hips <- 86, self.size <- "6"))
+            try self.db.run(dress.insert(self.bust <- 81, self.waist <- 68, self.hips <- 88, self.size <- "8"))
+            try self.db.run(dress.insert(self.bust <- 86, self.waist <- 73, self.hips <- 93, self.size <- "10"))
+            try self.db.run(dress.insert(self.bust <- 91, self.waist <- 78, self.hips <- 98, self.size <- "12"))
+            try self.db.run(dress.insert(self.bust <- 96, self.waist <- 83, self.hips <- 103, self.size <- "14"))
+            try self.db.run(dress.insert(self.bust <- 101, self.waist <- 91, self.hips <- 108, self.size <- "16"))
+            try self.db.run(dress.insert(self.bust <- 109, self.waist <- 98, self.hips <- 116, self.size <- "18"))
+            try self.db.run(dress.insert(self.bust <- 116, self.waist <- 105, self.hips <- 123, self.size <- "20"))
+            try self.db.run(dress.insert(self.bust <- 123, self.waist <- 112, self.hips <- 130, self.size <- "22"))
+            try self.db.run(dress.insert(self.bust <- 130, self.waist <- 119, self.hips <- 137, self.size <- "24"))
+            try self.db.run(dress.insert(self.bust <- 137, self.waist <- 126, self.hips <- 144, self.size <- "26"))
+            try self.db.run(dress.insert(self.bust <- 144, self.waist <- 133, self.hips <- 151, self.size <- "28"))
+            try self.db.run(dress.insert(self.bust <- 151, self.waist <- 140, self.hips <- 158, self.size <- "30"))
         } catch {
             print("Error populating women-top table")
         }
@@ -370,11 +366,11 @@ class Global {
     func printWomenTables() {
         do{
             //retrieve rows within the database in a sequence (array)
-            //print women-top table
+            //print dress table
             print("printing women-top table")
-            let printWomenTable = try db.prepare(self.womenTop)
-            for womenTop in printWomenTable {
-                print("Bust (cm): \(womenTop[self.bust]), Waist (cm): \(womenTop[self.waist]), Size: \(womenTop[self.size])")
+            let printDressTable = try db.prepare(self.dress)
+            for dress in printDressTable {
+                print("Bust (cm): \(dress[self.bust]), Waist (cm): \(dress[self.waist]), Hips (cm): \(dress[self.hips]) Size: \(dress[self.size])")
             }
         }catch {
             print("Error printing women-top table")
@@ -382,15 +378,15 @@ class Global {
     }
     
     //QUERIES
-    func queryWomenTopTable(waistParam: Int) -> String {
+    func queryWomenTopTable(bustParam: Int) -> String {
         var returnInfo = "size not found"
         do{
-            let waistQuery = womenTop.select(size).where(waist <= waistParam).order(waist.desc).limit(1)
+            let bustQuery = dress.select(size).where(bust <= bustParam).order(bust.desc).limit(1)
             
-            for womenTop in try db.prepare(waistQuery){
-                womenTopTemp = womenTop[size]
-                print("size: \(womenTopTemp)")
-                returnInfo = "Your UK top Size is \(womenTopTemp)"
+            for dress in try db.prepare(bustQuery){
+                dressTemp = dress[size]
+                print("size: \(dressTemp)")
+                returnInfo = "Your UK top Size is \(dressTemp)"
             }
         } catch {
             print("could not query women-top")
@@ -399,15 +395,26 @@ class Global {
         return returnInfo
     }
     
+    func queryDressTable(hipsParam: Int) -> String {
+        var returnInfo = "size not found"
+        do{
+            let hipsQuery = dress.select(size).where(hips <= hipsParam).order(hips.desc).limit(1)
+            
+            for dress in try db.prepare(hipsQuery){
+                dressTemp = dress[size]
+                print("size: \(dressTemp)")
+                returnInfo = "Your UK top Size is \(dressTemp)"
+            }
+        } catch {
+            print("could not query women-dress")
+        }
+        
+        return returnInfo
+    }
     
+
     
-    
-    
-    
-    
-    
-    
-    
+
     
 }
     

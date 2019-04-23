@@ -157,14 +157,23 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Beb-s8-yUN">
                                         <rect key="frame" x="0.0" y="30" width="53" height="30"/>
                                         <state key="normal" title="Dress"/>
+                                        <connections>
+                                            <action selector="dressButtonPressed:" destination="aSG-H5-R2y" eventType="touchUpInside" id="UL7-VP-hcf"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIZ-Fb-b41">
                                         <rect key="frame" x="0.0" y="60" width="53" height="30"/>
                                         <state key="normal" title="Trouser"/>
+                                        <connections>
+                                            <action selector="trouserButtonPressed:" destination="aSG-H5-R2y" eventType="touchUpInside" id="LYx-9b-v1K"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLX-Xn-CJN">
                                         <rect key="frame" x="0.0" y="90" width="53" height="30"/>
                                         <state key="normal" title="Bra"/>
+                                        <connections>
+                                            <action selector="braButtonPressed:" destination="aSG-H5-R2y" eventType="touchUpInside" id="GQI-jw-JP3"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
