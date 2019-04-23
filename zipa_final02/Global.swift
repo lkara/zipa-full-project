@@ -41,6 +41,11 @@ class Global {
     let underbust = Expression<Int>("underbust")
     let hips = Expression<Int>("hips")
     
+    //women variables to hold current input
+    var dressTemp = "test"
+    var womenTopTemp = "test"
+    var womenTrouserTemp = "test"
+    var braTemp = "test"
 
     //create a file path on users device to stored static database for all garments (men & women)
     func addDatabaseToFile() {
@@ -376,6 +381,23 @@ class Global {
         }
     }
     
+    //QUERIES
+    func queryWomenTopTable(waistParam: Int) -> String {
+        var returnInfo = "size not found"
+        do{
+            let waistQuery = womenTop.select(size).where(waist <= waistParam).order(waist.desc).limit(1)
+            
+            for womenTop in try db.prepare(waistQuery){
+                womenTopTemp = womenTop[size]
+                print("size: \(womenTopTemp)")
+                returnInfo = "Your UK top Size is \(womenTopTemp)"
+            }
+        } catch {
+            print("could not query women-top")
+        }
+        
+        return returnInfo
+    }
     
     
     
