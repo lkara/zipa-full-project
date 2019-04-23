@@ -15,6 +15,9 @@
 		00E6D639226C9F76003A1201 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E6D614226C9F62003A1201 /* SQLite.framework */; };
 		00E6D63A226C9F79003A1201 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E6D614226C9F62003A1201 /* SQLite.framework */; };
 		00E6D63B226C9F79003A1201 /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 00E6D614226C9F62003A1201 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		00E6D644226CDB83003A1201 /* MaleUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E6D642226CDB83003A1201 /* MaleUserViewController.swift */; };
+		00E6D647226CDC6D003A1201 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E6D646226CDC6D003A1201 /* Global.swift */; };
+		00E6D64E226F44BB003A1201 /* FemaleUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E6D64D226F44BB003A1201 /* FemaleUserViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +152,9 @@
 		00E6D5E3226C943E003A1201 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E6D609226C9F62003A1201 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../../../../Downloads/SQLite.swift-master 2/SQLite.xcodeproj"; sourceTree = "<group>"; };
 		00E6D621226C9F6D003A1201 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../../../../Downloads/SQLite.swift-master 2/SQLite.xcodeproj"; sourceTree = "<group>"; };
+		00E6D642226CDB83003A1201 /* MaleUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaleUserViewController.swift; sourceTree = "<group>"; };
+		00E6D646226CDC6D003A1201 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		00E6D64D226F44BB003A1201 /* FemaleUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FemaleUserViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +193,9 @@
 			children = (
 				00E6D5D7226C9439003A1201 /* AppDelegate.swift */,
 				00E6D5D9226C9439003A1201 /* ViewController.swift */,
+				00E6D646226CDC6D003A1201 /* Global.swift */,
+				00E6D642226CDB83003A1201 /* MaleUserViewController.swift */,
+				00E6D64D226F44BB003A1201 /* FemaleUserViewController.swift */,
 				00E6D5DB226C9439003A1201 /* Main.storyboard */,
 				00E6D5DE226C943E003A1201 /* Assets.xcassets */,
 				00E6D5E0226C943E003A1201 /* LaunchScreen.storyboard */,
@@ -415,8 +424,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00E6D647226CDC6D003A1201 /* Global.swift in Sources */,
+				00E6D644226CDB83003A1201 /* MaleUserViewController.swift in Sources */,
 				00E6D5DA226C9439003A1201 /* ViewController.swift in Sources */,
 				00E6D5D8226C9439003A1201 /* AppDelegate.swift in Sources */,
+				00E6D64E226F44BB003A1201 /* FemaleUserViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
