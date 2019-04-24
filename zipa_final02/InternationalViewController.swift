@@ -33,6 +33,7 @@ class InternationalViewController: UIViewController, UIPickerViewDelegate, UIPic
     override func viewDidLoad() {
         global.addDatabaseToFile()
         super.viewDidLoad()
+        
         //connect data
         self.ukSizePicker.delegate = self
         self.ukSizePicker.dataSource = self
