@@ -7,18 +7,16 @@
 //
 
 import UIKit
-import ARKit
 
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var sceneView: ARSCNView!
-    
-    
-    
+   
+    //homepage
+    //'find my size' gender selection page
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
     
 }

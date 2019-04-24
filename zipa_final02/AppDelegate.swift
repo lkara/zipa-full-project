@@ -20,14 +20,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //create database and garment tables containing static data
         global.addDatabaseToFile()
-    //    global.createMenTables()
-    //    global.populateMenTables()
-    //    global.printMenTables()
-    //    global.createWomenTables()
-    //    global.populateWomenTables()
-    //    global.printWomenTables()
+        
+        //'find my size' data tables
+        global.createMenTables()
+        global.populateMenTables()
+        global.createWomenTables()
+        global.populateWomenTables()
+
+        //international conversion tables
         global.createIntl()
         global.populateIntl()
+        
         return true
     }
 

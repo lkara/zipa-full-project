@@ -70,10 +70,10 @@ class Global {
     func createMenTables() {
         //create men garment tables
         print("---------------------------------------------------")
-        print("drop tables if they already exist")
+        print("drop tables if they already exist:")
         do{
             try db.run(shirt.drop(ifExists: true))
-            print("shirt table dropped")
+            print("men-shirt table dropped")
         } catch {
             print("error dropping shirt table")
         }
@@ -90,9 +90,8 @@ class Global {
             print("error dropping menTrouser table")
         }
         
-        print("creating men garment tables")
         print("---------------------------------------------------")
-        
+        print("creating men garment tables:")
         //create shirt table
         let createShirtTable = shirt.create { (table) in
             //add value/properties into table
@@ -116,21 +115,21 @@ class Global {
         //run create statements for all men garment tables
         do{
             try self.db.run(createShirtTable)
-            print("Created shirt table successfully")
+            print("created men-shirt table successfully")
         } catch {
             print("Error creating shirt table")
         }
         
         do{
             try self.db.run(createMenTopTable)
-            print("Created men-top table successfully")
+            print("created men-top table successfully")
         } catch {
             print("Error creating men-top table")
         }
         
         do{
             try self.db.run(createMenTrouserTable)
-            print("Created men-trousers table successfully")
+            print("created men-trousers table successfully")
         } catch {
             print("Error creating men-trouser table")
         }
@@ -141,7 +140,7 @@ class Global {
     //POPULATE
     func populateMenTables() {
         print("---------------------------------------------------")
-        print("populating men garment tables")
+        print("populating men garment tables:")
         do{
             try db.run(shirt.delete())
             try db.run(menTop.delete())
@@ -161,7 +160,7 @@ class Global {
             try self.db.run(shirt.insert(self.chest <- 111, self.neck <- 48, self.size <- "XL"))
             try self.db.run(shirt.insert(self.chest <- 116, self.neck <- 50, self.size <- "XXL"))
             try self.db.run(shirt.insert(self.chest <- 121, self.neck <- 52, self.size <- "XXXL"))
-            print("successfully populated shirt table")
+            print("successfully populated men-shirt table")
         } catch {
             print("Error populating shirt table")
         }
@@ -298,20 +297,19 @@ class Global {
     //--------------------------------------------------------------------------------------------------------
     //WOMEN
     //--------------------------------------------------------------------------------------------------------
-    //CREATE
     func createWomenTables() {
         //create women garment tables
         print("---------------------------------------------------")
-        print("drop tables if they already exist")
+        print("drop tables if they already exist:")
         do{
             try db.run(dress.drop(ifExists: true))
-            print("women-top table dropped")
+            print("women-dress table dropped")
         } catch {
-            print("error dropping women-top table")
+            print("error dropping women-dress table")
         }
-        
-        print("creating women garment tables")
+
         print("---------------------------------------------------")
+        print("creating women garment tables:")
         //create women-top table
         let createDressTable = dress.create { (table) in
             //add value/properties into table
@@ -324,7 +322,7 @@ class Global {
         //run create statements for all men garment tables
         do{
             try self.db.run(createDressTable)
-            print("Created women-dress table successfully")
+            print("created women-dress table successfully")
         } catch {
             print("Error creating women-dress table")
         }
@@ -333,7 +331,7 @@ class Global {
     //POPULATE
     func populateWomenTables() {
         print("---------------------------------------------------")
-        print("populating women garment tables")
+        print("populating women garment tables:")
         do{
             try db.run(dress.delete())
         } catch {
@@ -357,6 +355,7 @@ class Global {
             try self.db.run(dress.insert(self.bust <- 137, self.waist <- 126, self.hips <- 144, self.size <- "26"))
             try self.db.run(dress.insert(self.bust <- 144, self.waist <- 133, self.hips <- 151, self.size <- "28"))
             try self.db.run(dress.insert(self.bust <- 151, self.waist <- 140, self.hips <- 158, self.size <- "30"))
+            print("successfully populated women-dress table")
         } catch {
             print("Error populating women-top table")
         }
@@ -431,10 +430,13 @@ class Global {
     var intlTemp = "test"
 
     func createIntl() {
+        print("---------------------------------------------------")
+        print("drop tables if they already exist:")
         do{
             try db.run(womenIntl.drop(ifExists: true))
+            print("women-international table dropped")
             try db.run(menIntl.drop(ifExists: true))
-            print("international table dropped")
+            print("men-international table dropped")
         } catch {
             print("error dropping international table")
         }
@@ -457,21 +459,25 @@ class Global {
             table.column(self.japan)
         }
         
+        print("---------------------------------------------------")
+        print("creating international tables:")
         do{
             try self.db.run(createWomenIntlTable)
-            print("Created women international table successfully")
+            print("created women international table successfully")
         } catch {
             print("Error creating international table")
         }
         do{
             try self.db.run(createMenIntlTable)
-            print("Created men international table successfully")
+            print("created men international table successfully")
         } catch {
             print("Error creating international table")
         }
     }
     
     func populateIntl() {
+        print("---------------------------------------------------")
+        print("populating international tables:")
         do{
             try db.run(womenIntl.delete())
             try db.run(menIntl.delete())
@@ -496,6 +502,7 @@ class Global {
             try self.db.run(womenIntl.insert(self.uk <- "26", self.us <- "22", self.eu <- "54", self.russia <- "66/68", self.japan <- "25"))
             try self.db.run(womenIntl.insert(self.uk <- "28", self.us <- "24", self.eu <- "56", self.russia <- "70", self.japan <- "27"))
             try self.db.run(womenIntl.insert(self.uk <- "30", self.us <- "28", self.eu <- "58", self.russia <- "72/74", self.japan <- "29"))
+            print("successfully populated women-international table")
         } catch {
             print("Error populating women-intl tables")
         }
@@ -514,10 +521,16 @@ class Global {
             try self.db.run(menIntl.insert(self.uk <- "4XL", self.us <- "3XL", self.eu <- "60", self.australia <- "52", self.japan <- "n/a"))
             try self.db.run(menIntl.insert(self.uk <- "5XL", self.us <- "4XL", self.eu <- "62", self.australia <- "54", self.japan <- "n/a"))
             try self.db.run(menIntl.insert(self.uk <- "6XL", self.us <- "5XL", self.eu <- "64", self.australia <- "56", self.japan <- "n/a"))
+            print("successfully populated men-international table")
         } catch {
             print("Error populating men-intl tables")
         }
-        
+        print("---------------------------------------------------")
+            
+    }
+    
+    func printIntlTables(){
+        print("---------------------------------------------------")
         //print women-intl table
         do{
             let printWomenIntl = try db.prepare(self.womenIntl)
@@ -526,6 +539,7 @@ class Global {
             }
         } catch {
             print("Error prining women-intl tables")
+            print("---------------------------------------------------")
         }
         
         //print men-intl table
@@ -537,7 +551,6 @@ class Global {
         } catch {
             print("Error prining men-intl tables")
         }
-            
     }
     
     //--------------------------------------------------------------------------------------------------------
