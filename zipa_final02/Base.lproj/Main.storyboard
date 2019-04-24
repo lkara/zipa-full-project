@@ -382,11 +382,17 @@
                                 <rect key="frame" x="118" y="211" width="52" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Women"/>
+                                <connections>
+                                    <action selector="womenSelected:" destination="kmd-GG-aMA" eventType="touchUpInside" id="bVz-qx-bPu"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UwF-Ky-U8W">
                                 <rect key="frame" x="248" y="211" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Men"/>
+                                <connections>
+                                    <action selector="menSelected:" destination="kmd-GG-aMA" eventType="touchUpInside" id="CnA-yn-iPY"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select which gender:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7E-X4-Hn6">
                                 <rect key="frame" x="20" y="169" width="161" height="21"/>
