@@ -51,21 +51,21 @@ class MaleUserViewController: UIViewController {
         //popup error messages to set min/max range
         //chest range
         if(tempUser.tempChest > 150){
-            createAlert(title: "Chest input too large", message: "Expected range is between 65 - 150 (cm)")
+            createAlert(title: "Chest input too large", message: "input out of range")
         } else if(tempUser.tempChest < 65){
-            createAlert(title: "Chest input too small", message: "Expected range is between 65 - 150 (cm)")
+            createAlert(title: "Chest input too small", message: "input out of range")
         }
         //neck range
         if(tempUser.tempNeck > 55){
-            createAlert(title: "Neck input too large", message: "Expected range is between 30 - 55 (cm)")
+            createAlert(title: "Neck input too large", message: "input out of range")
         } else if(tempUser.tempNeck < 30){
-            createAlert(title: "Neck input too small", message: "Expected range is between 30 - 55 (cm)")
+            createAlert(title: "Neck input too small", message: "input out of range")
         }
         //waist range
         if(tempUser.tempWaist > 140){
-            createAlert(title: "Waist input too large", message: "Expected range is between 65 - 140 (cm)")
+            createAlert(title: "Waist input too large", message: "input out of range")
         } else if(tempUser.tempWaist < 65){
-            createAlert(title: "Waist input too small", message: "Expected range is between 65 - 140 (cm)")
+            createAlert(title: "Waist input too small", message: "input out of range")
         }
         
         
