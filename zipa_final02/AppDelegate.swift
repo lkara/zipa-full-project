@@ -23,9 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //    global.createMenTables()
     //    global.populateMenTables()
     //    global.printMenTables()
-        global.createWomenTables()
-        global.populateWomenTables()
-        global.printWomenTables()
+    //    global.createWomenTables()
+    //    global.populateWomenTables()
+    //    global.printWomenTables()
+        global.createIntl()
+        global.populateIntl()
         return true
     }
 

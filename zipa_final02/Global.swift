@@ -412,10 +412,76 @@ class Global {
         return returnInfo
     }
     
-
+    //--------------------------------------------------------------------------------------------------------
+    //International
+    //--------------------------------------------------------------------------------------------------------
     
-
+    let womenIntl = Table("womenIntl")
     
+    let uk = Expression<String>("uk")
+    let us = Expression<String>("us")
+
+    func createIntl() {
+        do{
+            try db.run(womenIntl.drop(ifExists: true))
+            print("international table dropped")
+        } catch {
+            print("error dropping international table")
+        }
+        
+        let createWomenIntlTable = womenIntl.create { (table) in
+            //add value/properties into table
+            table.column(self.uk)
+            table.column(self.us)
+        }
+        
+        do{
+            try self.db.run(createWomenIntlTable)
+            print("Created international table successfully")
+        } catch {
+            print("Error creating international table")
+        }
+    }
+    
+    func populateIntl() {
+        do{
+            try db.run(womenIntl.delete())
+        } catch {
+            print("Error deleting content of international tables")
+        }
+        
+        //populate women-intl table
+        do{
+            try self.db.run(womenIntl.insert(self.uk <- "2", self.us <- "00"))
+            try self.db.run(womenIntl.insert(self.uk <- "4", self.us <- "0"))
+            try self.db.run(womenIntl.insert(self.uk <- "6", self.us <- "2"))
+            try self.db.run(womenIntl.insert(self.uk <- "8", self.us <- "4"))
+            try self.db.run(womenIntl.insert(self.uk <- "10", self.us <- "6"))
+            try self.db.run(womenIntl.insert(self.uk <- "12", self.us <- "8"))
+            try self.db.run(womenIntl.insert(self.uk <- "14", self.us <- "10"))
+            try self.db.run(womenIntl.insert(self.uk <- "16", self.us <- "12"))
+            try self.db.run(womenIntl.insert(self.uk <- "18", self.us <- "14"))
+            try self.db.run(womenIntl.insert(self.uk <- "20", self.us <- "16"))
+            try self.db.run(womenIntl.insert(self.uk <- "22", self.us <- "18"))
+            try self.db.run(womenIntl.insert(self.uk <- "24", self.us <- "20"))
+            try self.db.run(womenIntl.insert(self.uk <- "26", self.us <- "22"))
+            try self.db.run(womenIntl.insert(self.uk <- "28", self.us <- "24"))
+            try self.db.run(womenIntl.insert(self.uk <- "30", self.us <- "28"))
+        } catch {
+            print("Error populating international tables")
+        }
+        
+        //print women-intl table
+        do{
+            let printWomenIntl = try db.prepare(self.womenIntl)
+            for womenIntl in printWomenIntl {
+                print("UK: \(womenIntl[self.uk]), US: \(womenIntl[self.us])")
+            }
+        } catch {
+            print("Error prining international tables")
+        }
+            
+    }
 }
     
 
