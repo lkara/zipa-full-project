@@ -420,6 +420,11 @@ class Global {
     
     let uk = Expression<String>("uk")
     let us = Expression<String>("us")
+    let eu = Expression<String>("eu")
+    let russia = Expression<String>("russia")
+    let japan = Expression<String>("japan")
+    
+    var intlTemp = "test"
 
     func createIntl() {
         do{
@@ -433,6 +438,9 @@ class Global {
             //add value/properties into table
             table.column(self.uk)
             table.column(self.us)
+            table.column(self.eu)
+            table.column(self.russia)
+            table.column(self.japan)
         }
         
         do{
@@ -452,21 +460,21 @@ class Global {
         
         //populate women-intl table
         do{
-            try self.db.run(womenIntl.insert(self.uk <- "2", self.us <- "00"))
-            try self.db.run(womenIntl.insert(self.uk <- "4", self.us <- "0"))
-            try self.db.run(womenIntl.insert(self.uk <- "6", self.us <- "2"))
-            try self.db.run(womenIntl.insert(self.uk <- "8", self.us <- "4"))
-            try self.db.run(womenIntl.insert(self.uk <- "10", self.us <- "6"))
-            try self.db.run(womenIntl.insert(self.uk <- "12", self.us <- "8"))
-            try self.db.run(womenIntl.insert(self.uk <- "14", self.us <- "10"))
-            try self.db.run(womenIntl.insert(self.uk <- "16", self.us <- "12"))
-            try self.db.run(womenIntl.insert(self.uk <- "18", self.us <- "14"))
-            try self.db.run(womenIntl.insert(self.uk <- "20", self.us <- "16"))
-            try self.db.run(womenIntl.insert(self.uk <- "22", self.us <- "18"))
-            try self.db.run(womenIntl.insert(self.uk <- "24", self.us <- "20"))
-            try self.db.run(womenIntl.insert(self.uk <- "26", self.us <- "22"))
-            try self.db.run(womenIntl.insert(self.uk <- "28", self.us <- "24"))
-            try self.db.run(womenIntl.insert(self.uk <- "30", self.us <- "28"))
+            try self.db.run(womenIntl.insert(self.uk <- "2", self.us <- "00", self.eu <- "30", self.russia <- "36/38", self.japan <- "1"))
+            try self.db.run(womenIntl.insert(self.uk <- "4", self.us <- "0", self.eu <- "32", self.russia <- "38", self.japan <- "3"))
+            try self.db.run(womenIntl.insert(self.uk <- "6", self.us <- "2", self.eu <- "34", self.russia <- "38/40", self.japan <- "5"))
+            try self.db.run(womenIntl.insert(self.uk <- "8", self.us <- "4", self.eu <- "36", self.russia <- "40", self.japan <- "7"))
+            try self.db.run(womenIntl.insert(self.uk <- "10", self.us <- "6", self.eu <- "38", self.russia <- "42/44", self.japan <- "9"))
+            try self.db.run(womenIntl.insert(self.uk <- "12", self.us <- "8", self.eu <- "40", self.russia <- "48", self.japan <- "11"))
+            try self.db.run(womenIntl.insert(self.uk <- "14", self.us <- "10", self.eu <- "42", self.russia <- "48", self.japan <- "13"))
+            try self.db.run(womenIntl.insert(self.uk <- "16", self.us <- "12", self.eu <- "44", self.russia <- "50", self.japan <- "15"))
+            try self.db.run(womenIntl.insert(self.uk <- "18", self.us <- "14", self.eu <- "46", self.russia <- "54", self.japan <- "17"))
+            try self.db.run(womenIntl.insert(self.uk <- "20", self.us <- "16", self.eu <- "48", self.russia <- "58", self.japan <- "19"))
+            try self.db.run(womenIntl.insert(self.uk <- "22", self.us <- "18", self.eu <- "50", self.russia <- "60/62", self.japan <- "21"))
+            try self.db.run(womenIntl.insert(self.uk <- "24", self.us <- "20", self.eu <- "52", self.russia <- "64", self.japan <- "23"))
+            try self.db.run(womenIntl.insert(self.uk <- "26", self.us <- "22", self.eu <- "54", self.russia <- "66/68", self.japan <- "25"))
+            try self.db.run(womenIntl.insert(self.uk <- "28", self.us <- "24", self.eu <- "56", self.russia <- "70", self.japan <- "27"))
+            try self.db.run(womenIntl.insert(self.uk <- "30", self.us <- "28", self.eu <- "58", self.russia <- "72/74", self.japan <- "29"))
         } catch {
             print("Error populating international tables")
         }
@@ -475,12 +483,69 @@ class Global {
         do{
             let printWomenIntl = try db.prepare(self.womenIntl)
             for womenIntl in printWomenIntl {
-                print("UK: \(womenIntl[self.uk]), US: \(womenIntl[self.us])")
+                print("UK: \(womenIntl[self.uk]), US: \(womenIntl[self.us]), EU: \(womenIntl[self.eu]), Russia: \(womenIntl[self.russia]), Japan: \(womenIntl[self.japan])")
             }
         } catch {
             print("Error prining international tables")
         }
             
+    }
+    
+    
+    func queryWomenIntlTableUS(ukParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let usQuery = womenIntl.select(us).where(uk == ukParam)
+            for womenIntl in try db.prepare(usQuery){
+                intlTemp = womenIntl[us]
+                returnInfo = "You are a US size \(intlTemp)"
+            }
+        } catch {
+            print("could not query women-intl table")
+        }
+        return returnInfo
+    }
+    
+    func queryWomenIntlTableEU(ukParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let euQuery = womenIntl.select(eu).where(uk == ukParam)
+            for womenIntl in try db.prepare(euQuery){
+                intlTemp = womenIntl[eu]
+                returnInfo = "You are an EU size \(intlTemp)"
+            }
+        } catch {
+            print("could not query women-intl table")
+        }
+        return returnInfo
+    }
+    
+    func queryWomenIntlTableRUS(ukParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let rusQuery = womenIntl.select(russia).where(uk == ukParam)
+            for womenIntl in try db.prepare(rusQuery){
+                intlTemp = womenIntl[russia]
+                returnInfo = "You are a Russian size \(intlTemp)"
+            }
+        } catch {
+            print("could not query women-intl table")
+        }
+        return returnInfo
+    }
+    
+    func queryWomenIntlTableJAP(ukParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let japQuery = womenIntl.select(japan).where(uk == ukParam)
+            for womenIntl in try db.prepare(japQuery){
+                intlTemp = womenIntl[japan]
+                returnInfo = "You are a Japan size \(intlTemp)"
+            }
+        } catch {
+            print("could not query women-intl table")
+        }
+        return returnInfo
     }
 }
     
