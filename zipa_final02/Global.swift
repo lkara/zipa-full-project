@@ -59,7 +59,7 @@ class Global {
             //connect this 'database' to Global database
             self.db = database
         } catch {
-            print("Error creating File")
+            print("Error creating Database")
         }
     }
     
