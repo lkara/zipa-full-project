@@ -35,8 +35,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		004B98E52270961D00A8354B /* InternationalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternationalViewController.swift; sourceTree = "<group>"; };
-		004B98F82270F10900A8354B /* HighstreetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighstreetViewController.swift; sourceTree = "<group>"; };
+		004B98E52270961D00A8354B /* InternationalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InternationalViewController.swift; path = ../InternationalViewController.swift; sourceTree = "<group>"; };
+		004B98F82270F10900A8354B /* HighstreetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HighstreetViewController.swift; path = ../HighstreetViewController.swift; sourceTree = "<group>"; };
 		00C2DDBC2270FCBF00225FFC /* AugmentedRealityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityViewController.swift; sourceTree = "<group>"; };
 		00E6D5D4226C9439003A1201 /* zipa_final02.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zipa_final02.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E6D5D7226C9439003A1201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,7 +47,7 @@
 		00E6D5E3226C943E003A1201 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E6D642226CDB83003A1201 /* MaleUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaleUserViewController.swift; sourceTree = "<group>"; };
 		00E6D646226CDC6D003A1201 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
-		00E6D64D226F44BB003A1201 /* FemaleUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FemaleUserViewController.swift; sourceTree = "<group>"; };
+		00E6D64D226F44BB003A1201 /* FemaleUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FemaleUserViewController.swift; path = ../FemaleUserViewController.swift; sourceTree = "<group>"; };
 		21A6FDF4D17A92F62318843F /* Pods-zipa_final02.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zipa_final02.release.xcconfig"; path = "Target Support Files/Pods-zipa_final02/Pods-zipa_final02.release.xcconfig"; sourceTree = "<group>"; };
 		2D41B80FDB5F74965A619AF7 /* Pods_zipa_final02.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_zipa_final02.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0548BF5C02C7B5BC16D6484 /* Pods-zipa_final02.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zipa_final02.debug.xcconfig"; path = "Target Support Files/Pods-zipa_final02/Pods-zipa_final02.debug.xcconfig"; sourceTree = "<group>"; };
@@ -65,6 +65,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		009D018E2275059100B3F9D9 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				00C2DDBC2270FCBF00225FFC /* AugmentedRealityViewController.swift */,
+				004B98F82270F10900A8354B /* HighstreetViewController.swift */,
+				004B98E52270961D00A8354B /* InternationalViewController.swift */,
+				00E6D64D226F44BB003A1201 /* FemaleUserViewController.swift */,
+				00E6D642226CDB83003A1201 /* MaleUserViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
 		00E6D5CB226C9439003A1201 = {
 			isa = PBXGroup;
 			children = (
@@ -89,11 +101,7 @@
 				00E6D5D7226C9439003A1201 /* AppDelegate.swift */,
 				00E6D5D9226C9439003A1201 /* ViewController.swift */,
 				00E6D646226CDC6D003A1201 /* Global.swift */,
-				00E6D642226CDB83003A1201 /* MaleUserViewController.swift */,
-				00E6D64D226F44BB003A1201 /* FemaleUserViewController.swift */,
-				004B98E52270961D00A8354B /* InternationalViewController.swift */,
-				004B98F82270F10900A8354B /* HighstreetViewController.swift */,
-				00C2DDBC2270FCBF00225FFC /* AugmentedRealityViewController.swift */,
+				009D018E2275059100B3F9D9 /* View Controllers */,
 				00E6D5DB226C9439003A1201 /* Main.storyboard */,
 				00E6D5DE226C943E003A1201 /* Assets.xcassets */,
 				00E6D5E0226C943E003A1201 /* LaunchScreen.storyboard */,
