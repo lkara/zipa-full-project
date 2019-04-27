@@ -32,19 +32,25 @@ class Global {
     
     //women garment tables
     let dress = Table("dress")
-    let braStrap = Table("braStrap")
-    let bra = Table("bra")
+    let braTable = Table("bra")
     
     //women (additional) table columns
+    let hips = Expression<Int>("hips")
     let bust = Expression<Int>("bust")
     let underbust = Expression<Int>("underbust")
-    let hips = Expression<Int>("hips")
+    let cup = Expression<String>("cup")
+    let bra = Expression<String>("bra")
     
     //women variables to hold current input
     var dressTemp = "test"
     var braTemp = "test"
-
+    
+    //create csv stream to read women-bra
+    let braStream = InputStream(fileAtPath: "/Users/Lydia/Documents/year3/Final Project/zipa_final02/garment_data/women-bra.csv")!
+    
+    
     //create a file path on users device to stored static database for all garments (men & women)
+    //called in ViewDidLoad()
     func addDatabaseToFile() {
         do{
             //create file to store database on users device
@@ -63,6 +69,47 @@ class Global {
             print("Error creating Database")
         }
     }
+    
+    func createBraTable() {
+        let createBraTable = braTable.create { (table) in
+            table.column(self.cup)
+            table.column(self.bra)
+            table.column(self.bust)
+            table.column(self.underbust)
+            
+        }
+        
+        do{
+            try self.db.run(createBraTable)
+            print("created bra table successfully")
+        } catch {
+            print("Error creating bra table")
+        }
+    }
+    
+    //csv
+    func readFromCSV() {
+        let csv = try! CSVReader(stream: braStream, hasHeaderRow: true)
+        while csv.next() != nil {
+            do{
+                try self.db.run(braTable.insert(self.cup <- csv["cup"]!, self.bra <- csv["bra"]!, self.bust <- Int(csv["bust"]!)!, self.underbust <- Int(csv["underbust"]!)!))
+            } catch {
+                print("error populating bra table")
+            }
+        }
+    }
+    
+    func printInConsole() {
+        do{
+            let printBra = try db.prepare(self.braTable)
+            for braTable in printBra {
+                print("Cup : \(braTable[self.cup]), Bra: \(braTable[self.bra]), Bust (cm): \(braTable[self.bust]), Underbust (cm): \(braTable[self.underbust])")
+            }
+        } catch {
+            print("error printing bra table")
+        }
+    }
+    
     
     //--------------------------------------------------------------------------------------------------------
     //MEN

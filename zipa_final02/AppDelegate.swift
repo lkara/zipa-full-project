@@ -22,14 +22,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         global.addDatabaseToFile()
         
         //'find my size' data tables
-        global.createMenTables()
-        global.populateMenTables()
-        global.createWomenTables()
-        global.populateWomenTables()
+    //    global.createMenTables()
+    //    global.populateMenTables()
+    //    global.createWomenTables()
+    //    global.populateWomenTables()
 
         //international conversion tables
-        global.createIntl()
-        global.populateIntl()
+   //     global.createIntl()
+   //     global.populateIntl()
+        
+        global.createBraTable()
+        global.readFromCSV()
+        global.printInConsole()
         
         return true
     }
