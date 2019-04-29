@@ -13,13 +13,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let global = Global()
+    let database = Database()
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         //create database and garment tables containing static data
-        global.addDatabaseToFile()
+        database.addDatabaseToFile()
         
         //'find my size' data tables
     //    global.createMenTables()
@@ -31,9 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    //     global.createIntl()
    //     global.populateIntl()
         
-        global.createBraTable()
-        global.readFromCSV()
-        global.printInConsole()
+     //   database.createCSVTable()
+        database.readFromCSV()
+        database.printInConsole()
         
         return true
     }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		004B98E62270961D00A8354B /* InternationalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004B98E52270961D00A8354B /* InternationalViewController.swift */; };
 		004B98F92270F10900A8354B /* HighstreetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004B98F82270F10900A8354B /* HighstreetViewController.swift */; };
+		006AC2A9227705B000B1F7FA /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006AC2A8227705B000B1F7FA /* Database.swift */; };
 		00C2DDBD2270FCBF00225FFC /* AugmentedRealityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C2DDBC2270FCBF00225FFC /* AugmentedRealityViewController.swift */; };
 		00E6D5D8226C9439003A1201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E6D5D7226C9439003A1201 /* AppDelegate.swift */; };
 		00E6D5DA226C9439003A1201 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E6D5D9226C9439003A1201 /* ViewController.swift */; };
@@ -37,6 +38,7 @@
 /* Begin PBXFileReference section */
 		004B98E52270961D00A8354B /* InternationalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InternationalViewController.swift; path = ../InternationalViewController.swift; sourceTree = "<group>"; };
 		004B98F82270F10900A8354B /* HighstreetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HighstreetViewController.swift; path = ../HighstreetViewController.swift; sourceTree = "<group>"; };
+		006AC2A8227705B000B1F7FA /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		00C2DDBC2270FCBF00225FFC /* AugmentedRealityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityViewController.swift; sourceTree = "<group>"; };
 		00E6D5D4226C9439003A1201 /* zipa_final02.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zipa_final02.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E6D5D7226C9439003A1201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		00E6D5D6226C9439003A1201 /* zipa_final02 */ = {
 			isa = PBXGroup;
 			children = (
+				006AC2A8227705B000B1F7FA /* Database.swift */,
 				00E6D5D7226C9439003A1201 /* AppDelegate.swift */,
 				00E6D5D9226C9439003A1201 /* ViewController.swift */,
 				00E6D646226CDC6D003A1201 /* Global.swift */,
@@ -256,6 +259,7 @@
 				00E6D5DA226C9439003A1201 /* ViewController.swift in Sources */,
 				004B98E62270961D00A8354B /* InternationalViewController.swift in Sources */,
 				00E6D5D8226C9439003A1201 /* AppDelegate.swift in Sources */,
+				006AC2A9227705B000B1F7FA /* Database.swift in Sources */,
 				00E6D64E226F44BB003A1201 /* FemaleUserViewController.swift in Sources */,
 				004B98F92270F10900A8354B /* HighstreetViewController.swift in Sources */,
 			);

@@ -74,7 +74,7 @@ class InternationalViewController: UIViewController, UIPickerViewDelegate, UIPic
         }
         
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if gender == true {
             if component == 0 {
@@ -100,7 +100,7 @@ class InternationalViewController: UIViewController, UIPickerViewDelegate, UIPic
         
         
     }
-    
+
     func sizeChangedWOM() {
         print("UK size selected: \(sizePicked)")
         if countryPicked == "US" {

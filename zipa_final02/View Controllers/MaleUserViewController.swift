@@ -94,7 +94,7 @@ class MaleUserViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    
+
     @IBOutlet weak var displaySize: UILabel!
     @IBAction func shirtButtonPressed(_ sender: Any) {
         print("temp chest: \(tempUser.tempChest)")
@@ -117,7 +117,5 @@ class MaleUserViewController: UIViewController {
         print(output)
         displaySize.text = output
     }
-    
-    
     
 }

@@ -11,7 +11,7 @@ import UIKit
 class FemaleUserViewController: UIViewController {
 
     //connect to global database
-    let global = Global()
+    let database = Database()
     
     //will hold user input temporarily even when moving between views
     struct tempUser {
@@ -23,8 +23,7 @@ class FemaleUserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        global.addDatabaseToFile()
-        // Do any additional setup after loading the view.
+        database.addDatabaseToFile()
     }
     
     //user input from text fields
@@ -103,29 +102,28 @@ class FemaleUserViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-    
+  
     @IBAction func topButtonPressed(_ sender: Any) {
-        let output = global.queryWomenTopTable(bustParam: tempUser.tempBust)
+        let output = database.queryForTop(bustParam: tempUser.tempBust, waistParam: tempUser.tempWaist)
         print(output)
         displayLabel.text = output
     }
     
     @IBAction func dressButtonPressed(_ sender: Any) {
-        let output = global.queryDressTable(hipsParam: tempUser.tempHips)
+        let output = database.queryForDress(waistParam: tempUser.tempWaist, hipsParam: tempUser.tempHips)
         print(output)
         displayLabel.text = output
     }
     
     @IBAction func trouserButtonPressed(_ sender: Any) {
-        let output = global.queryDressTable(hipsParam: tempUser.tempHips)
+        let output = database.queryForDress(waistParam: tempUser.tempWaist, hipsParam: tempUser.tempHips)
         print(output)
         displayLabel.text = output
     }
-    
+ 
     @IBAction func braButtonPressed(_ sender: Any) {
-        print("bra button still to be finished")
-       // let output = global.queryWomenBraTable(waistParam: tempUser.tempWaist)
-       // print(output)
-       // displayLabel.text = output
+        let output = database.queryForBra(bustParam: tempUser.tempBust, underBustParam: tempUser.tempUnderbust)
+        print(output)
+        displayLabel.text = output
     }
 }
