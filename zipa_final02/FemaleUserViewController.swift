@@ -116,7 +116,7 @@ class FemaleUserViewController: UIViewController {
     }
     
     @IBAction func trouserButtonPressed(_ sender: Any) {
-        let output = database.queryForDress(waistParam: tempUser.tempWaist, hipsParam: tempUser.tempHips)
+        let output = database.queryForTrouser(waistParam: tempUser.tempWaist, hipsParam: tempUser.tempHips)
         print(output)
         displayLabel.text = output
     }

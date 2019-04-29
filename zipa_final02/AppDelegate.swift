@@ -32,8 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    //     global.createIntl()
    //     global.populateIntl()
         
-     //   database.createCSVTable()
-        database.readFromCSV()
+        database.createCSVTable()
+        database.readBraFromCSV()
+        database.readDressFromCSV()
         database.printInConsole()
         
         return true

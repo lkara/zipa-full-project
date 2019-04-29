@@ -41,12 +41,7 @@ class Database {
     var dressTemp02 = "test"
     var tempBra = "test"
     var tempCup = "test"
-    
-    //create csv stream to read women-bra
-    let braStream = InputStream(fileAtPath: "/Users/Lydia/Documents/year3/Final Project/zipa_final02/garment_data/women-bra.csv")!
-    let dressStream = InputStream(fileAtPath: "/Users/Lydia/Documents/year3/Final Project/zipa_final02/garment_data/women-dress.csv")!
-    
-    
+
     //create a file path on users device to stored static database for all garments (men & women)
     //called in ViewDidLoad()
     func addDatabaseToFile() {
@@ -115,11 +110,14 @@ class Database {
         }
     }
     
-    //csv
-    func readFromCSV() {
+
+    //bra
+    func readBraFromCSV(){
+        let braFilepath = Bundle.main.path(forResource: "women-bra", ofType: "csv")!
+        let braStream = InputStream(fileAtPath: braFilepath)!
         let braCSV = try! CSVReader(stream: braStream, hasHeaderRow: true)
-        let dressCSV = try! CSVReader(stream: dressStream, hasHeaderRow: true)
-        //bra
+        
+        
         while braCSV.next() != nil {
             do{
                 try self.db.run(braTable.insert(self.cup <- braCSV["cup"]!, self.bra <- braCSV["bra"]!, self.bust <- Int(braCSV["bust"]!)!, self.underbust <- Int(braCSV["underbust"]!)!))
@@ -127,8 +125,15 @@ class Database {
                 print("error populating bra table")
             }
         }
- 
-        //dress
+        
+    }
+    //dress
+    func readDressFromCSV() {
+        let dressFilepath = Bundle.main.path(forResource: "women-dress", ofType: "csv")!
+        let dressStream = InputStream(fileAtPath: dressFilepath)!
+        let dressCSV = try! CSVReader(stream: dressStream, hasHeaderRow: true)
+        
+        
         while dressCSV.next() != nil {
             do{
                 try self.db.run(dressTable.insert(self.size <- dressCSV["size"]!, self.bust <- Int(dressCSV["bust"]!)!, self.waist <- Int(dressCSV["waist"]!)!, self.hips <- Int(dressCSV["hips"]!)!))
@@ -231,6 +236,35 @@ class Database {
                 returnInfo = "Your Dress Size is: \(dressTemp02) - \(dressTemp01)"
             } else {
                 returnInfo = "Your Dress Size is: \(dressTemp01) - \(dressTemp02)"
+            }
+        } catch {
+            print("could not return top size")
+        }
+        
+        return returnInfo
+    }
+    
+    func queryForTrouser(waistParam: Int, hipsParam: Int) -> String {
+        var returnInfo = "size not found"
+        do{
+            let waistQuery = dressTable.select(size).where(waist <= waistParam).order(waist.desc).limit(1)
+            let hipsQuery = dressTable.select(size).where(hips <= hipsParam).order(hips.desc).limit(1)
+            
+            for dressTable in try db.prepare(waistQuery){
+                dressTemp01 = dressTable[size]
+            }
+            
+            for dressTable in try db.prepare(hipsQuery){
+                dressTemp02 = dressTable[size]
+            }
+            
+            //figure whether to return a size or a range:
+            if(dressTemp01 == dressTemp02){
+                returnInfo = "Your Trouser Size is: \(dressTemp01)"
+            } else if (Int(dressTemp01)! > Int(dressTemp02)!){
+                returnInfo = "Your Trouser Size is: \(dressTemp02) - \(dressTemp01)"
+            } else {
+                returnInfo = "Your Trouser Size is: \(dressTemp01) - \(dressTemp02)"
             }
         } catch {
             print("could not return top size")
