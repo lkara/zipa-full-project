@@ -22,13 +22,19 @@ class Database {
     var db: Connection!
     
     //tables
+    //garments:
     let dressTable = Table("dress")
     let braTable = Table("bra")
     let shirtTable = Table("shirt")
-    let menTop = Table("menTop")
     let menTrouser = Table("menTrouser")
+    //highstreet:
+    let womenHS = Table("womenHS")
+    let menHS = Table("menHS")
+    //international:
+    
     
     //table columns
+    //garments:
     let neck = Expression<Int>("neck")
     let chest = Expression<Int>("chest")
     let waist = Expression<Int>("waist")
@@ -40,6 +46,11 @@ class Database {
     let bra = Expression<String>("bra")
     let innerleg = Expression<Int>("innerleg")
     let length = Expression<String>("length")
+    //highstreet:
+    let hm = Expression<String>("hm")
+    let topshop = Expression<String>("topshop")
+    let missguided = Expression<String>("missguided")
+    let boohoo = Expression<String>("boohoo")
     
     //women variables to hold current input
     var dressTemp01 = "test"
@@ -97,13 +108,6 @@ class Database {
         } catch {
             print("error dropping shirt table")
         }
-        //men-top:
-        do{
-            try db.run(menTop.drop(ifExists: true))
-            print("men-top table dropped")
-        } catch {
-            print("error dropping men-top table")
-        }
         //men-trouser:
         do{
             try db.run(menTrouser.drop(ifExists: true))
@@ -157,20 +161,6 @@ class Database {
             print("created shirt table successfully")
         } catch {
             print("Error creating shirt table")
-        }
-        
-        //men-top:
-        let createTopTable = menTop.create { (table) in
-            //add value/properties into table
-            table.column(self.size)
-            table.column(self.chest)
-        }
-        
-        do{
-            try self.db.run(createTopTable)
-            print("created men-top table successfully")
-        } catch {
-            print("Error creating men-top table")
         }
         
         //men-trouser:
@@ -245,23 +235,6 @@ class Database {
         }
     }
     
-    //top:
-    func readTopFromCSV() {
-        let topFilepath = Bundle.main.path(forResource: "men-top", ofType: "csv")!
-        let topStream = InputStream(fileAtPath: topFilepath)!
-        let topCSV = try! CSVReader(stream: topStream, hasHeaderRow: true)
-        
-        
-        while topCSV.next() != nil {
-            do{
-                try self.db.run(menTop.insert(self.size <- topCSV["size"]!, self.chest <- Int(topCSV["chest"]!)!))
-                //print("top table successfully populated")
-            } catch {
-                print("error populating men-top table")
-            }
-        }
-    }
-    
     //trouser:
     func readTrouserFromCSV() {
         let trouserFilepath = Bundle.main.path(forResource: "men-trouser", ofType: "csv")!
@@ -311,17 +284,6 @@ class Database {
             }
         } catch {
             print("error printing shirt table")
-        }
-        
-        //men-top:
-        do{
-            print("top:")
-            let printTop = try db.prepare(self.menTop)
-            for menTop in printTop {
-                print("Size : \(menTop[self.size]), Chest: \(menTop[self.chest])")
-            }
-        } catch {
-            print("error printing men-top table")
         }
         
         //men-trouser:
@@ -471,10 +433,10 @@ class Database {
     func queryForMenTop(chestParam: Int) -> String {
         var returnInfo = "size not found"
         do{
-            let chestQuery = menTop.select(size).where(chest <= chestParam).order(chest.desc).limit(1)
+            let chestQuery = shirtTable.select(size).where(chest <= chestParam).order(chest.desc).limit(1)
             
-            for menTop in try db.prepare(chestQuery){
-                topTemp = menTop[size]
+            for shirtTable in try db.prepare(chestQuery){
+                topTemp = shirtTable[size]
                 print("size: \(topTemp)")
                 returnInfo = "Your UK top Size is \(topTemp)"
             }
@@ -502,7 +464,70 @@ class Database {
         
         return returnInfo
     }
-
+    
+    //highstreet ----------------------------------------------------------------------------
+    func createHighstreetTables() {
+        //drop tables if they already exist:
+        print("drop tables if they already exist:")
+        //women-highstreet:
+        do{
+            try db.run(womenHS.drop(ifExists: true))
+            print("women-highstreet table dropped")
+        } catch {
+            print("error dropping women-highstreet table")
+        }
+        
+        //create tables:
+        //women-highstreet:
+        let createWomenHS = womenHS.create { (table) in
+            table.column(self.size)
+            table.column(self.hm)
+            table.column(self.topshop)
+            table.column(self.missguided)
+            table.column(self.boohoo)
+        }
+        
+        do{
+            try self.db.run(createWomenHS)
+            print("created women-highstreet table successfully")
+        } catch {
+            print("Error creating women-highstreet table")
+        }
+    }
+    
+    //populate from csv
+    //women-highstreet:
+    func womenHSFromCSV(){
+        let whsFilepath = Bundle.main.path(forResource: "women-highstreet", ofType: "csv")!
+        
+        let whsStream = InputStream(fileAtPath: whsFilepath)!
+        let whsCSV = try! CSVReader(stream: whsStream, hasHeaderRow: true)
+        
+        
+        while whsCSV.next() != nil {
+            do{
+                try self.db.run(womenHS.insert(self.size <- whsCSV["size"]!, self.hm <- whsCSV["hm"]!, self.topshop <- whsCSV["topshop"]!, self.missguided <- whsCSV["missguided"]!, self.boohoo <- whsCSV["boohoo"]!))
+            } catch {
+                print("error populating women-highstreet table")
+            }
+        }
+        
+    }
+    
+    func printHS() {
+        //women-highstreet:
+        do{
+            print("women-highstreet:")
+            let printWomenHS = try db.prepare(self.womenHS)
+            for womenHS in printWomenHS {
+                print("size : \(womenHS[self.size]), hm: \(womenHS[self.hm]), topshop: \(womenHS[self.topshop]), missguided: \(womenHS[self.missguided]), boohoo: \(womenHS[self.boohoo])")
+            }
+        } catch {
+            print("error printing women-highstreet table")
+        }
+    }
+    
+    
     
     
 }

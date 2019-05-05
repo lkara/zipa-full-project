@@ -33,11 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    //     global.populateIntl()
         
         database.createCSVTable()
+        database.createHighstreetTables()
         database.readBraFromCSV()
         database.readDressFromCSV()
         database.readShirtFromCSV()
-        database.readTopFromCSV()
         database.readTrouserFromCSV()
+        database.womenHSFromCSV()
+        database.printHS()
         database.printInConsole()
         
         return true
