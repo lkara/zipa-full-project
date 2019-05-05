@@ -51,6 +51,8 @@ class Database {
     let topshop = Expression<String>("topshop")
     let missguided = Expression<String>("missguided")
     let boohoo = Expression<String>("boohoo")
+    let uniqlo = Expression<String>("uniqlo")
+    let topman = Expression <String>("topman")
     
     //women variables to hold current input
     var dressTemp01 = "test"
@@ -470,11 +472,18 @@ class Database {
     //highstreet ----------------------------------------------------------------------------
     func createHighstreetTables() {
         //drop tables if they already exist:
-        print("drop tables if they already exist:")
         //women-highstreet:
         do{
             try db.run(womenHS.drop(ifExists: true))
             print("women-highstreet table dropped")
+        } catch {
+            print("error dropping women-highstreet table")
+        }
+        
+        //men-highstreet:
+        do{
+            try db.run(menHS.drop(ifExists: true))
+            print("men-highstreet table dropped")
         } catch {
             print("error dropping women-highstreet table")
         }
@@ -495,16 +504,29 @@ class Database {
         } catch {
             print("Error creating women-highstreet table")
         }
+        
+        //men-highstreet:
+        let createMenHS = menHS.create { (table) in
+            table.column(self.size)
+            table.column(self.uniqlo)
+            table.column(self.topman)
+            table.column(self.boohoo)
+        }
+        
+        do{
+            try self.db.run(createMenHS)
+            print("created men-highstreet table successfully")
+        } catch {
+            print("Error creating men-highstreet table")
+        }
     }
     
     //populate from csv
     //women-highstreet:
     func womenHSFromCSV(){
         let whsFilepath = Bundle.main.path(forResource: "women-highstreet", ofType: "csv")!
-        
         let whsStream = InputStream(fileAtPath: whsFilepath)!
         let whsCSV = try! CSVReader(stream: whsStream, hasHeaderRow: true)
-        
         
         while whsCSV.next() != nil {
             do{
@@ -514,6 +536,21 @@ class Database {
             }
         }
         
+    }
+    
+    //men-highstreet:
+    func menHSFromCSV() {
+        let mhsFilepath = Bundle.main.path(forResource: "men-highstreet", ofType: "csv")!
+        let mhsStream = InputStream(fileAtPath: mhsFilepath)!
+        let mhsCSV = try! CSVReader(stream: mhsStream, hasHeaderRow: true)
+        
+        while mhsCSV.next() != nil {
+            do{
+                try self.db.run(menHS.insert(self.size <- mhsCSV["size"]!, self.uniqlo <- mhsCSV["uniqlo"]!, self.topman <- mhsCSV["topman"]!, self.boohoo <- mhsCSV["boohoo"]!))
+            } catch {
+                print("error populating men-highstreet table")
+            }
+        }
     }
     
     func printHS() {
@@ -526,6 +563,17 @@ class Database {
             }
         } catch {
             print("error printing women-highstreet table")
+        }
+        
+        //men-highstreet:
+        do{
+            print("men-highstreet:")
+            let printMenHS = try db.prepare(self.menHS)
+            for menHS in printMenHS {
+                print("size : \(menHS[self.size]), uniqlo: \(menHS[self.uniqlo]), topman: \(menHS[self.topman]), boohooMAN: \(menHS[self.boohoo])")
+            }
+        } catch {
+            print("error printing men-highstreet table")
         }
     }
     

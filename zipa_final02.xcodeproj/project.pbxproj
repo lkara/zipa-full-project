@@ -19,6 +19,7 @@
 		00C2DDBD2270FCBF00225FFC /* AugmentedRealityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C2DDBC2270FCBF00225FFC /* AugmentedRealityViewController.swift */; };
 		00CE4AAC227EEE770062A85D /* men-shirt2.csv in Resources */ = {isa = PBXBuildFile; fileRef = 00CE4AAB227EEE770062A85D /* men-shirt2.csv */; };
 		00CE4AB2227F0C550062A85D /* women-highstreet.csv in Resources */ = {isa = PBXBuildFile; fileRef = 00CE4AB1227F0C550062A85D /* women-highstreet.csv */; };
+		00CE4AB4227F1F580062A85D /* men-highstreet.csv in Resources */ = {isa = PBXBuildFile; fileRef = 00CE4AB3227F1F580062A85D /* men-highstreet.csv */; };
 		00E6D5D8226C9439003A1201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E6D5D7226C9439003A1201 /* AppDelegate.swift */; };
 		00E6D5DA226C9439003A1201 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E6D5D9226C9439003A1201 /* ViewController.swift */; };
 		00E6D5DD226C9439003A1201 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00E6D5DB226C9439003A1201 /* Main.storyboard */; };
@@ -56,6 +57,7 @@
 		00C2DDBC2270FCBF00225FFC /* AugmentedRealityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityViewController.swift; sourceTree = "<group>"; };
 		00CE4AAB227EEE770062A85D /* men-shirt2.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "men-shirt2.csv"; sourceTree = "<group>"; };
 		00CE4AB1227F0C550062A85D /* women-highstreet.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "women-highstreet.csv"; sourceTree = "<group>"; };
+		00CE4AB3227F1F580062A85D /* men-highstreet.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "men-highstreet.csv"; sourceTree = "<group>"; };
 		00E6D5D4226C9439003A1201 /* zipa_final02.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zipa_final02.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E6D5D7226C9439003A1201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00E6D5D9226C9439003A1201 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				006AC2BB22775EE600B1F7FA /* men-trouser.csv */,
 				006AC2BA22775EE600B1F7FA /* women-bra.csv */,
 				006AC2BD22775EE600B1F7FA /* women-dress.csv */,
+				00CE4AB3227F1F580062A85D /* men-highstreet.csv */,
 				00CE4AB1227F0C550062A85D /* women-highstreet.csv */,
 				006AC2B822775EE600B1F7FA /* women-international.csv */,
 			);
@@ -239,6 +242,7 @@
 				00CE4AB2227F0C550062A85D /* women-highstreet.csv in Resources */,
 				006AC2C022775EE700B1F7FA /* women-bra.csv in Resources */,
 				006AC2C222775EE700B1F7FA /* men-international.csv in Resources */,
+				00CE4AB4227F1F580062A85D /* men-highstreet.csv in Resources */,
 				00E6D5DF226C943E003A1201 /* Assets.xcassets in Resources */,
 				00E6D5DD226C9439003A1201 /* Main.storyboard in Resources */,
 				006AC2C122775EE700B1F7FA /* men-trouser.csv in Resources */,

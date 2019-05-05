@@ -39,8 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         database.readShirtFromCSV()
         database.readTrouserFromCSV()
         database.womenHSFromCSV()
+        database.menHSFromCSV()
         database.printHS()
-        database.printInConsole()
+     //   database.printInConsole()
         
         return true
     }
