@@ -104,7 +104,7 @@ class FemaleUserViewController: UIViewController {
     }
   
     @IBAction func topButtonPressed(_ sender: Any) {
-        let output = database.queryForTop(bustParam: tempUser.tempBust, waistParam: tempUser.tempWaist)
+        let output = database.queryForTop(waistParam: tempUser.tempWaist, bustParam: tempUser.tempBust)
         print(output)
         displayLabel.text = output
     }

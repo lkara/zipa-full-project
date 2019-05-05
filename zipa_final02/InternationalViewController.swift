@@ -10,7 +10,8 @@ import UIKit
 
 class InternationalViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
    
-    let global = Global()
+    //connect to global database
+    let database = Database()
     
     @IBOutlet weak var countrySelected: UILabel!
     @IBOutlet weak var sizeReturned: UILabel!
@@ -18,7 +19,6 @@ class InternationalViewController: UIViewController, UIPickerViewDelegate, UIPic
     
     //decides which gender you pick
     var gender = true
-    
     
     //if gender = true
     var womenPickerData: [[String]] = [[String]]()
@@ -31,7 +31,7 @@ class InternationalViewController: UIViewController, UIPickerViewDelegate, UIPic
     var countryPicked = "test"
     
     override func viewDidLoad() {
-        global.addDatabaseToFile()
+        database.addDatabaseToFile()
         super.viewDidLoad()
         
         //connect data
@@ -41,7 +41,7 @@ class InternationalViewController: UIViewController, UIPickerViewDelegate, UIPic
         //input data as array
         womenPickerData = [[" ","2","4","6","8","10","12","14","16","18","20","22","24","26","28","30"],[" ","US","France","Spain","Australia","Russia","Japan"]]
         
-        menPickerData = [[" ","XXXS","XXS","XS","S","M","L","XL","XXL","3XL","4XL","5XL","6XL"],[" ","US","France","Spain","Australia","Japan"]]
+        menPickerData = [[" ","3XS","XXS","XS","S","M","L","XL","XXL","3XL","4XL","5XL","6XL"],[" ","US","France","Spain","Australia","Japan"]]
         
         print("gender: \(gender)")
     }
@@ -104,22 +104,22 @@ class InternationalViewController: UIViewController, UIPickerViewDelegate, UIPic
     func sizeChangedWOM() {
         print("UK size selected: \(sizePicked)")
         if countryPicked == "US" {
-            let hold = global.queryWomenIntlTableUS(ukParam: sizePicked)
+            let hold = database.queryWomenIntlTableUS(ukParam: sizePicked)
             print("US size generated: \(hold)")
             sizeReturned.text = hold
         } else if (countryPicked == "France" || countryPicked == "Spain") {
-            let hold = global.queryWomenIntlTableEU(ukParam: sizePicked)
+            let hold = database.queryWomenIntlTableEU(ukParam: sizePicked)
             print("EU size generated: \(hold)")
             sizeReturned.text = hold
         } else if countryPicked == "Australia" {
             sizeReturned.text = "You are an Austalia size "+sizePicked
         } else if countryPicked == "Russia" {
-            let hold = global.queryWomenIntlTableRUS(ukParam: sizePicked)
+            let hold = database.queryWomenIntlTableRUS(ukParam: sizePicked)
             print("Russia size generated: \(hold)")
             sizeReturned.text = hold
         } else {
             //japan
-            let hold = global.queryWomenIntlTableJAP(ukParam: sizePicked)
+            let hold = database.queryWomenIntlTableJAP(ukParam: sizePicked)
             print("Japan size generated: \(hold)")
             sizeReturned.text = hold
         }
@@ -128,20 +128,20 @@ class InternationalViewController: UIViewController, UIPickerViewDelegate, UIPic
     func sizeChangedMEN() {
         print("UK size selected: \(sizePicked)")
         if countryPicked == "US" {
-            let hold = global.queryMenIntlTableUS(ukParam: sizePicked)
+            let hold = database.queryMenIntlTableUS(ukParam: sizePicked)
             print("US size generated: \(hold)")
             sizeReturned.text = hold
         } else if (countryPicked == "France" || countryPicked == "Spain") {
-            let hold = global.queryMenIntlTableEU(ukParam: sizePicked)
+            let hold = database.queryMenIntlTableEU(ukParam: sizePicked)
             print("EU size generated: \(hold)")
             sizeReturned.text = hold
         } else if countryPicked == "Australia" {
-            let hold = global.queryMenIntlTableAUS(ukParam: sizePicked)
+            let hold = database.queryMenIntlTableAUS(ukParam: sizePicked)
             print("Australia size generated: \(hold)")
             sizeReturned.text = hold
         } else {
             //japan
-            let hold = global.queryMenIntlTableJAP(ukParam: sizePicked)
+            let hold = database.queryMenIntlTableJAP(ukParam: sizePicked)
             print("Japan size generated: \(hold)")
             sizeReturned.text = hold
         }

@@ -12,7 +12,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let global = Global()
     let database = Database()
 
 
@@ -22,26 +21,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //create database and garment tables containing static data
         database.addDatabaseToFile()
         
-        //'find my size' data tables
-    //    global.createMenTables()
-    //    global.populateMenTables()
-    //    global.createWomenTables()
-    //    global.populateWomenTables()
-
-        //international conversion tables
-   //     global.createIntl()
-   //     global.populateIntl()
-        
+        //find my size:
         database.createCSVTable()
-        database.createHighstreetTables()
         database.readBraFromCSV()
         database.readDressFromCSV()
         database.readShirtFromCSV()
         database.readTrouserFromCSV()
+        database.printInConsole()
+        
+        //highstreet:
+        database.createHighstreetTables()
         database.womenHSFromCSV()
         database.menHSFromCSV()
         database.printHS()
-     //   database.printInConsole()
+        
+        //international:
+        database.createIntlTables()
+        database.womenIntlFromCSV()
+        database.menIntlFromCSV()
+        database.printIntl()
         
         return true
     }

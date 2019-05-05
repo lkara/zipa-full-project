@@ -31,7 +31,8 @@ class Database {
     let womenHS = Table("womenHS")
     let menHS = Table("menHS")
     //international:
-    
+    let womenIntl = Table("womenIntl")
+    let menIntl = Table("menIntl")
     
     //table columns
     //garments:
@@ -53,19 +54,29 @@ class Database {
     let boohoo = Expression<String>("boohoo")
     let uniqlo = Expression<String>("uniqlo")
     let topman = Expression <String>("topman")
+    //international:
+    let uk = Expression<String>("uk")
+    let us = Expression<String>("us")
+    let eu = Expression<String>("eu")
+    let australia = Expression<String>("australia")
+    let russia = Expression<String>("russia")
+    let japan = Expression<String>("japan")
     
-    //women variables to hold current input
-    var dressTemp01 = "test"
-    var dressTemp02 = "test"
+    //temporary variables:
+    //women variables to hold current input:
+    var dressTemp01 = "14"
+    var dressTemp02 = "14"
     var tempBra = "test"
     var tempCup = "test"
-    
-    //men variables to hold current input
+    //men variables to hold current input:
     var shirtTemp = "test"
     var topTemp = "test"
     var trouserTemp = "test"
-    
+    //highstreet variables to hold current input:
     var womenHSTemp = "test"
+    var menHSTemp = "test"
+    //international variable to hold current input:
+    var intlTemp = "test"
 
     //create a file path on users device to stored static database for all garments (men & women)
     //called in ViewDidLoad()
@@ -88,9 +99,9 @@ class Database {
         }
     }
     
+    //find my size ----------------------------------------------------------------------------
     func createCSVTable() {
         //drop tables if they already exist:
-        print("drop tables if they already exist:")
         //bra:
         do{
             try db.run(braTable.drop(ifExists: true))
@@ -303,7 +314,7 @@ class Database {
         
     }
     
-    //garment queries ------------------------------------------------------------------------
+    //garment - queries
     //bra:
     func queryForBra(bustParam: Int, underBustParam: Int) -> String {
         var returnInfo = "size not found"
@@ -326,18 +337,22 @@ class Database {
     }
     
     //women-top:
-    func queryForTop(bustParam: Int, waistParam: Int) -> String {
+    func queryForTop(waistParam: Int, bustParam: Int) -> String {
         var returnInfo = "size not found"
         do{
-            let bustQuery = dressTable.select(size).where(bust <= bustParam).order(bust.desc).limit(1)
+            print("waistParam: \(waistParam)")
+            print("bustParam: \(bustParam)")
             let waistQuery = dressTable.select(size).where(waist <= waistParam).order(waist.desc).limit(1)
+            let bustQuery = dressTable.select(size).where(bust <= bustParam).order(bust.desc).limit(1)
             
             for dressTable in try db.prepare(bustQuery){
                 dressTemp01 = dressTable[size]
+                print("dressTemp01: \(dressTemp01)")
             }
             
             for dressTable in try db.prepare(waistQuery){
                 dressTemp02 = dressTable[size]
+                print("dressTemp02: \(dressTemp02)")
             }
             
             //figure whether to return a size or a range:
@@ -638,7 +653,261 @@ class Database {
         return returnInfo
     }
     
+    //men:
+    //uniqlo:
+    func queryUniqlo(sizeParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let storeQuery = menHS.select(uniqlo).where(size == sizeParam)
+            for menHS in try db.prepare(storeQuery){
+                menHSTemp = menHS[uniqlo]
+                returnInfo = "In Uniqlo, we recommend a size \(menHSTemp)"
+            }
+        } catch {
+            print("could not query men-highstreet table")
+        }
+        return returnInfo
+    }
     
+    //topman:
+    func queryTopman(sizeParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let storeQuery = menHS.select(topman).where(size == sizeParam)
+            for menHS in try db.prepare(storeQuery){
+                menHSTemp = menHS[topman]
+                returnInfo = "In Topman, we recommend a size \(menHSTemp)"
+            }
+        } catch {
+            print("could not query men-highstreet table")
+        }
+        return returnInfo
+    }
+    
+    //boohooMAN:
+    func queryBoohooMAN(sizeParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let storeQuery = menHS.select(boohoo).where(size == sizeParam)
+            for menHS in try db.prepare(storeQuery){
+                menHSTemp = menHS[boohoo]
+                returnInfo = "In BooHooMAN, we recommend a size \(menHSTemp)"
+            }
+        } catch {
+            print("could not query men-highstreet table")
+        }
+        return returnInfo
+    }
+    
+    //international ----------------------------------------------------------------------------
+    func createIntlTables(){
+        do{
+            try db.run(womenIntl.drop(ifExists: true))
+            print("women-international table dropped")
+            try db.run(menIntl.drop(ifExists: true))
+            print("men-international table dropped")
+        } catch {
+            print("error dropping international table")
+        }
+        
+        //women international table
+        let createWomenIntlTable = womenIntl.create { (table) in
+            table.column(self.uk)
+            table.column(self.us)
+            table.column(self.eu)
+            table.column(self.russia)
+            table.column(self.japan)
+        }
+        
+        //men international table
+        let createMenIntlTable = menIntl.create { (table) in
+            table.column(self.uk)
+            table.column(self.us)
+            table.column(self.eu)
+            table.column(self.australia)
+            table.column(self.japan)
+        }
+        
+        do{
+            try self.db.run(createWomenIntlTable)
+            print("created women international table successfully")
+        } catch {
+            print("Error creating international table")
+        }
+        do{
+            try self.db.run(createMenIntlTable)
+            print("created men international table successfully")
+        } catch {
+            print("Error creating international table")
+        }
+    }
+    
+    func womenIntlFromCSV() {
+        let wiFilepath = Bundle.main.path(forResource: "women-international", ofType: "csv")!
+        let wiStream = InputStream(fileAtPath: wiFilepath)!
+        let wiCSV = try! CSVReader(stream: wiStream, hasHeaderRow: true)
+        
+        while wiCSV.next() != nil {
+            do{
+                try self.db.run(womenIntl.insert(self.uk <- wiCSV["uk"]!, self.us <- wiCSV["us"]!, self.eu <- wiCSV["eu"]!, self.russia <- wiCSV["russia"]!, self.japan <- wiCSV["japan"]!))
+            } catch {
+                print("error populating women-international table")
+            }
+        }
+    }
+    
+    func menIntlFromCSV() {
+        let miFilepath = Bundle.main.path(forResource: "men-international", ofType: "csv")!
+        let miStream = InputStream(fileAtPath: miFilepath)!
+        let miCSV = try! CSVReader(stream: miStream, hasHeaderRow: true)
+        
+        while miCSV.next() != nil {
+            do{
+                try self.db.run(menIntl.insert(self.uk <- miCSV["uk"]!, self.us <- miCSV["us"]!, self.eu <- miCSV["eu"]!, self.australia <- miCSV["australia"]!, self.japan <- miCSV["japan"]!))
+            } catch {
+                print("error populating men-international table")
+            }
+        }
+    }
+    
+    func printIntl() {
+        //women-international:
+        do{
+            print("women-international:")
+            let printWomenIntl = try db.prepare(self.womenIntl)
+            for womenIntl in printWomenIntl {
+                print("UK: \(womenIntl[self.uk]), US: \(womenIntl[self.us]), EU: \(womenIntl[self.eu]), Russia: \(womenIntl[self.russia]), Japan: \(womenIntl[self.japan])")
+            }
+        } catch {
+            print("error printing women-international table")
+        }
+        
+        //men-international:
+        do{
+            print("men-international:")
+            let printMenIntl = try db.prepare(self.menIntl)
+            for menIntl in printMenIntl {
+                print("UK: \(menIntl[self.uk]), US: \(menIntl[self.us]), EU: \(menIntl[self.eu]), Australia: \(menIntl[self.australia]), Japan: \(menIntl[self.japan])")
+            }
+        } catch {
+            print("error printing men-international table")
+        }
+    }
+    
+    //international - queries
+    //women-international:
+    func queryWomenIntlTableUS(ukParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let usQuery = womenIntl.select(us).where(uk == ukParam)
+            for womenIntl in try db.prepare(usQuery){
+                intlTemp = womenIntl[us]
+                returnInfo = "You are a US size \(intlTemp)"
+            }
+        } catch {
+            print("could not query women-intl table")
+        }
+        return returnInfo
+    }
+    
+    func queryWomenIntlTableEU(ukParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let euQuery = womenIntl.select(eu).where(uk == ukParam)
+            for womenIntl in try db.prepare(euQuery){
+                intlTemp = womenIntl[eu]
+                returnInfo = "You are an EU size \(intlTemp)"
+            }
+        } catch {
+            print("could not query women-intl table")
+        }
+        return returnInfo
+    }
+    
+    func queryWomenIntlTableRUS(ukParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let rusQuery = womenIntl.select(russia).where(uk == ukParam)
+            for womenIntl in try db.prepare(rusQuery){
+                intlTemp = womenIntl[russia]
+                returnInfo = "You are a Russian size \(intlTemp)"
+            }
+        } catch {
+            print("could not query women-intl table")
+        }
+        return returnInfo
+    }
+    
+    func queryWomenIntlTableJAP(ukParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let japQuery = womenIntl.select(japan).where(uk == ukParam)
+            for womenIntl in try db.prepare(japQuery){
+                intlTemp = womenIntl[japan]
+                returnInfo = "You are a Japan size \(intlTemp)"
+            }
+        } catch {
+            print("could not query women-intl table")
+        }
+        return returnInfo
+    }
+    
+    //men-international
+    func queryMenIntlTableUS(ukParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let usQuery = menIntl.select(us).where(uk == ukParam)
+            for menIntl in try db.prepare(usQuery){
+                intlTemp = menIntl[us]
+                returnInfo = "You are a US size \(intlTemp)"
+            }
+        } catch {
+            print("could not query men-intl table")
+        }
+        return returnInfo
+    }
+    
+    func queryMenIntlTableEU(ukParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let euQuery = menIntl.select(eu).where(uk == ukParam)
+            for menIntl in try db.prepare(euQuery){
+                intlTemp = menIntl[eu]
+                returnInfo = "You are a EU size \(intlTemp)"
+            }
+        } catch {
+            print("could not query men-intl table")
+        }
+        return returnInfo
+    }
+    
+    func queryMenIntlTableAUS(ukParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let ausQuery = menIntl.select(australia).where(uk == ukParam)
+            for menIntl in try db.prepare(ausQuery){
+                intlTemp = menIntl[australia]
+                returnInfo = "You are a Australia size \(intlTemp)"
+            }
+        } catch {
+            print("could not query men-intl table")
+        }
+        return returnInfo
+    }
+    
+    func queryMenIntlTableJAP(ukParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let japQuery = menIntl.select(japan).where(uk == ukParam)
+            for menIntl in try db.prepare(japQuery){
+                intlTemp = menIntl[japan]
+                returnInfo = "You are a Japan size \(intlTemp)"
+            }
+        } catch {
+            print("could not query men-intl table")
+        }
+        return returnInfo
+    }
     
     
 }

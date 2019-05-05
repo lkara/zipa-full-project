@@ -39,6 +39,8 @@ class HighstreetViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         womenPickerData = [[" ","2","4","6","8","10","12","14","16","18","20","22","24","26","28","30"],[" ","HM","Topshop","Missguided","Boohoo"]]
         
+        menPickerData = [[" ","3XS","XXS","XS","S","M","L","XL","XXL","3XL","4XL","5XL","6XL"],[" ","Uniqlo","Topman","BoohooMAN"]]
+        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -56,7 +58,7 @@ class HighstreetViewController: UIViewController, UIPickerViewDelegate, UIPicker
             if component == 0 {
                 return 13
             } else {
-                return 6
+                return 4
             }
         }
     }
@@ -84,11 +86,11 @@ class HighstreetViewController: UIViewController, UIPickerViewDelegate, UIPicker
             if component == 0 {
                 //retrieve user selected UK size
                 sizePicked = menPickerData[component][row]
-               // sizeChangedMEN()
+                sizeChangedMEN()
             } else {
                 storePicked = menPickerData[component][row]
                 storeLabel.text = storePicked+" :"
-               // sizeChangedMEN()
+                sizeChangedMEN()
             }
         }
     }
@@ -114,6 +116,23 @@ class HighstreetViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
     
+    func sizeChangedMEN() {
+        print("ZIPA size selected: \(sizePicked)")
+        if storePicked == "Uniqlo" {
+            let hold = database.queryUniqlo(sizeParam: sizePicked)
+            print("Uniqlo size generated: \(hold)")
+            sizeLabel.text = hold
+        } else if (storePicked == "Topman") {
+            let hold = database.queryTopman(sizeParam: sizePicked)
+            print("Topman size generated: \(hold)")
+            sizeLabel.text = hold
+        } else if (storePicked == "BoohooMAN") {
+            let hold = database.queryBoohooMAN(sizeParam: sizePicked)
+            print("BoohooMAN size generated: \(hold)")
+            sizeLabel.text = hold
+        }
+    }
+    
     
     @IBAction func womenSelected(_ sender: Any) {
         gender = true
@@ -132,6 +151,19 @@ class HighstreetViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     @IBAction func menSelected(_ sender: Any) {
+        gender = false
+        print("men selected: \(gender)")
+        
+        //reset picker to 0
+        storePicker.reloadAllComponents()
+        storePicker.selectRow(0, inComponent: 0, animated: true)
+        storePicker.selectRow(0, inComponent: 1, animated: true)
+        
+        //reset variables
+        sizePicked = " "
+        storePicked = " "
+        storeLabel.text = " "
+        sizeLabel.text = " "
     }
     
 

@@ -26,7 +26,6 @@
 		00E6D5DF226C943E003A1201 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00E6D5DE226C943E003A1201 /* Assets.xcassets */; };
 		00E6D5E2226C943E003A1201 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00E6D5E0226C943E003A1201 /* LaunchScreen.storyboard */; };
 		00E6D644226CDB83003A1201 /* MaleUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E6D642226CDB83003A1201 /* MaleUserViewController.swift */; };
-		00E6D647226CDC6D003A1201 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E6D646226CDC6D003A1201 /* Global.swift */; };
 		00E6D64E226F44BB003A1201 /* FemaleUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E6D64D226F44BB003A1201 /* FemaleUserViewController.swift */; };
 		0D38FDF3D73C78F6BE34B238 /* Pods_zipa_final02.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D41B80FDB5F74965A619AF7 /* Pods_zipa_final02.framework */; };
 /* End PBXBuildFile section */
@@ -66,7 +65,6 @@
 		00E6D5E1226C943E003A1201 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		00E6D5E3226C943E003A1201 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E6D642226CDB83003A1201 /* MaleUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaleUserViewController.swift; sourceTree = "<group>"; };
-		00E6D646226CDC6D003A1201 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		00E6D64D226F44BB003A1201 /* FemaleUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FemaleUserViewController.swift; path = ../FemaleUserViewController.swift; sourceTree = "<group>"; };
 		21A6FDF4D17A92F62318843F /* Pods-zipa_final02.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zipa_final02.release.xcconfig"; path = "Target Support Files/Pods-zipa_final02/Pods-zipa_final02.release.xcconfig"; sourceTree = "<group>"; };
 		2D41B80FDB5F74965A619AF7 /* Pods_zipa_final02.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_zipa_final02.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,7 +146,6 @@
 				006AC2A8227705B000B1F7FA /* Database.swift */,
 				00E6D5D7226C9439003A1201 /* AppDelegate.swift */,
 				00E6D5D9226C9439003A1201 /* ViewController.swift */,
-				00E6D646226CDC6D003A1201 /* Global.swift */,
 				006AC2C72278604100B1F7FA /* Resources */,
 				009D018E2275059100B3F9D9 /* View Controllers */,
 				00E6D5E3226C943E003A1201 /* Info.plist */,
@@ -305,7 +302,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E6D647226CDC6D003A1201 /* Global.swift in Sources */,
 				00E6D644226CDB83003A1201 /* MaleUserViewController.swift in Sources */,
 				00C2DDBD2270FCBF00225FFC /* AugmentedRealityViewController.swift in Sources */,
 				00E6D5DA226C9439003A1201 /* ViewController.swift in Sources */,
