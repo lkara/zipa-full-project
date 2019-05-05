@@ -13,7 +13,7 @@ import CSV
 class Global {
     //db = database now available globally to be used across all ViewControllers and .swift files
     var db: Connection!
-    
+
     //men garment tables
     let shirt = Table("shirt")
     let menTop = Table("menTop")

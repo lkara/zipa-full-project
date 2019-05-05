@@ -35,6 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         database.createCSVTable()
         database.readBraFromCSV()
         database.readDressFromCSV()
+        database.readShirtFromCSV()
+        database.readTopFromCSV()
+        database.readTrouserFromCSV()
         database.printInConsole()
         
         return true

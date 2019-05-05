@@ -60,9 +60,9 @@ class FemaleUserViewController: UIViewController {
         }
         //underbust range
         if(tempUser.tempUnderbust > 120){
-            createAlert(title: "Neck input too large", message: "input out of range")
+            createAlert(title: "Underbust input too large", message: "input out of range")
         } else if(tempUser.tempUnderbust < 67){
-            createAlert(title: "Neck input too small", message: "input out of range")
+            createAlert(title: "Underbust input too small", message: "input out of range")
         }
         //waist range
         if(tempUser.tempWaist > 140){
@@ -72,9 +72,9 @@ class FemaleUserViewController: UIViewController {
         }
         //hips range
         if(tempUser.tempHips > 160){
-            createAlert(title: "Waist input too large", message: "input out of range")
+            createAlert(title: "Hips input too large", message: "input out of range")
         } else if(tempUser.tempHips < 80){
-            createAlert(title: "Waist input too small", message: "input out of range")
+            createAlert(title: "Hips input too small", message: "input out of range")
         }
         
         print("temp bust is currently: \(tempUser.tempBust)")

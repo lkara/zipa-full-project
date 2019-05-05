@@ -12,7 +12,7 @@ import SQLite
 class MaleUserViewController: UIViewController {
     
     //connect to global database
-    let global = Global()
+    let database = Database()
     
     //will hold user input temporarily even when moving between views
     struct tempUser {
@@ -23,7 +23,7 @@ class MaleUserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        global.addDatabaseToFile()
+        database.addDatabaseToFile()
         
     }
 
@@ -98,14 +98,14 @@ class MaleUserViewController: UIViewController {
     @IBOutlet weak var displaySize: UILabel!
     @IBAction func shirtButtonPressed(_ sender: Any) {
         print("temp chest: \(tempUser.tempChest)")
-        let output = global.queryShirtTable(chestParam: tempUser.tempChest)
+        let output = database.queryForShirt(chestParam: tempUser.tempChest)
         print(output)
         displaySize.text = output
     }
     
     @IBAction func topButtonPressed(_ sender: Any) {
         print("temp chest: \(tempUser.tempChest)")
-        let output = global.queryMenTopTable(chestParam: tempUser.tempChest)
+        let output = database.queryForMenTop(chestParam: tempUser.tempChest)
         print(output)
         displaySize.text = output
     }
@@ -113,7 +113,7 @@ class MaleUserViewController: UIViewController {
     
     @IBAction func trouserButtonPressed(_ sender: Any) {
         print("temp waist: \(tempUser.tempWaist)")
-        let output = global.queryMenTrouserTable(waistParam: tempUser.tempWaist)
+        let output = database.queryForMenTrouser(waistParam: tempUser.tempWaist)
         print(output)
         displaySize.text = output
     }

@@ -22,6 +22,7 @@ class AugmentedRealityViewController: UIViewController {
         super.viewDidLoad()
         //enabling debug options
         sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints,ARSCNDebugOptions.showWorldOrigin]
+        sceneView.autoenablesDefaultLighting = true
         
         //start the AR session
         config.planeDetection = .horizontal
@@ -47,6 +48,7 @@ class AugmentedRealityViewController: UIViewController {
         let hitTest = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent)
         if !hitTest.isEmpty{
             print("Touched on the plane")
+            addGarments(hitTestResult: hitTest.first!)
         }
         else{
             print("Not a plane")
@@ -72,6 +74,19 @@ extension AugmentedRealityViewController:ARSCNViewDelegate{
         floorNode.eulerAngles = SCNVector3(Double.pi/2,0,0)
         floorNode.name = floorNodeName
         return floorNode
+    }
+    
+    func addGarments(hitTestResult:ARHitTestResult){
+        
+        let garmentName = "Dress"
+        
+        guard let scene = SCNScene(named: "garments.scnassets/\(garmentName).scn") else{return}
+        
+        let node = (scene.rootNode.childNode(withName: garmentName, recursively: false))!
+        let transform = hitTestResult.worldTransform
+        let thirdColumn = transform.columns.3
+        node.position = SCNVector3(thirdColumn.x, thirdColumn.y, thirdColumn.z)
+        self.sceneView.scene.rootNode.addChildNode(node)
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {

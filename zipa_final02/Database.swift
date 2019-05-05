@@ -24,6 +24,9 @@ class Database {
     //tables
     let dressTable = Table("dress")
     let braTable = Table("bra")
+    let shirtTable = Table("shirt")
+    let menTop = Table("menTop")
+    let menTrouser = Table("menTrouser")
     
     //table columns
     let neck = Expression<Int>("neck")
@@ -35,12 +38,19 @@ class Database {
     let size = Expression<String>("size")
     let cup = Expression<String>("cup")
     let bra = Expression<String>("bra")
+    let innerleg = Expression<Int>("innerleg")
+    let length = Expression<String>("length")
     
     //women variables to hold current input
     var dressTemp01 = "test"
     var dressTemp02 = "test"
     var tempBra = "test"
     var tempCup = "test"
+    
+    //men variables to hold current input
+    var shirtTemp = "test"
+    var topTemp = "test"
+    var trouserTemp = "test"
 
     //create a file path on users device to stored static database for all garments (men & women)
     //called in ViewDidLoad()
@@ -64,20 +74,45 @@ class Database {
     }
     
     func createCSVTable() {
+        //drop tables if they already exist:
         print("drop tables if they already exist:")
+        //bra:
         do{
             try db.run(braTable.drop(ifExists: true))
             print("bra table dropped")
         } catch {
             print("error dropping bra table")
         }
+        //dress:
         do{
             try db.run(dressTable.drop(ifExists: true))
             print("dress table dropped")
         } catch {
             print("error dropping dress table")
         }
-        //bra table from csv
+        //shirt:
+        do{
+            try db.run(shirtTable.drop(ifExists: true))
+            print("shirt table dropped")
+        } catch {
+            print("error dropping shirt table")
+        }
+        //men-top:
+        do{
+            try db.run(menTop.drop(ifExists: true))
+            print("men-top table dropped")
+        } catch {
+            print("error dropping men-top table")
+        }
+        //men-trouser:
+        do{
+            try db.run(menTrouser.drop(ifExists: true))
+            print("men-trouser table dropped")
+        } catch {
+            print("error dropping men-trouser table")
+        }
+        //create tables:
+        //bra:
         let createBraTable = braTable.create { (table) in
             table.column(self.cup)
             table.column(self.bra)
@@ -93,7 +128,7 @@ class Database {
             print("Error creating bra table")
         }
         
-        //dress table from csv
+        //dress:
         let createDressTable = dressTable.create { (table) in
             //add value/properties into table
             table.column(self.size)
@@ -108,12 +143,59 @@ class Database {
         } catch {
             print("Error creating women-dress table")
         }
+        
+        //shirt:
+        let createShirtTable = shirtTable.create { (table) in
+            //add value/properties into table
+            table.column(self.size)
+            table.column(self.neck)
+            table.column(self.chest)
+        }
+        
+        do{
+            try self.db.run(createShirtTable)
+            print("created shirt table successfully")
+        } catch {
+            print("Error creating shirt table")
+        }
+        
+        //men-top:
+        let createTopTable = menTop.create { (table) in
+            //add value/properties into table
+            table.column(self.size)
+            table.column(self.chest)
+        }
+        
+        do{
+            try self.db.run(createTopTable)
+            print("created men-top table successfully")
+        } catch {
+            print("Error creating men-top table")
+        }
+        
+        //men-trouser:
+        let createTrouserTable = menTrouser.create { (table) in
+            //add value/properties into table
+            table.column(self.size)
+            table.column(self.length)
+            table.column(self.waist)
+            table.column(self.innerleg)
+        }
+        
+        do{
+            try self.db.run(createTrouserTable)
+            print("created men-trouser table successfully")
+        } catch {
+            print("Error creating men-trouser table")
+        }
+        
     }
     
-
-    //bra
+    //populating from csv ----------------------------------------------------------------------
+    //bra:
     func readBraFromCSV(){
         let braFilepath = Bundle.main.path(forResource: "women-bra", ofType: "csv")!
+        
         let braStream = InputStream(fileAtPath: braFilepath)!
         let braCSV = try! CSVReader(stream: braStream, hasHeaderRow: true)
         
@@ -121,13 +203,15 @@ class Database {
         while braCSV.next() != nil {
             do{
                 try self.db.run(braTable.insert(self.cup <- braCSV["cup"]!, self.bra <- braCSV["bra"]!, self.bust <- Int(braCSV["bust"]!)!, self.underbust <- Int(braCSV["underbust"]!)!))
+                //print("bra table successfully populated")
             } catch {
                 print("error populating bra table")
             }
         }
         
     }
-    //dress
+    
+    //dress:
     func readDressFromCSV() {
         let dressFilepath = Bundle.main.path(forResource: "women-dress", ofType: "csv")!
         let dressStream = InputStream(fileAtPath: dressFilepath)!
@@ -137,15 +221,68 @@ class Database {
         while dressCSV.next() != nil {
             do{
                 try self.db.run(dressTable.insert(self.size <- dressCSV["size"]!, self.bust <- Int(dressCSV["bust"]!)!, self.waist <- Int(dressCSV["waist"]!)!, self.hips <- Int(dressCSV["hips"]!)!))
+                //print("dress table successfully populated")
             } catch {
                 print("error populating dress table")
             }
         }
     }
     
+    //shirt:
+    func readShirtFromCSV() {
+        let shirtFilepath = Bundle.main.path(forResource: "men-shirt2", ofType: "csv")!
+        let shirtStream = InputStream(fileAtPath: shirtFilepath)!
+        let shirtCSV = try! CSVReader(stream: shirtStream, hasHeaderRow: true)
+        
+        
+        while shirtCSV.next() != nil {
+            do{
+                try self.db.run(shirtTable.insert(self.size <- shirtCSV["size"]!, self.chest <- Int(shirtCSV["chest"]!)!, self.neck <- Int(shirtCSV["neck"]!)!))
+                //print("shirt table successfully populated")
+            } catch {
+                print("error populating shirt table")
+            }
+        }
+    }
+    
+    //top:
+    func readTopFromCSV() {
+        let topFilepath = Bundle.main.path(forResource: "men-top", ofType: "csv")!
+        let topStream = InputStream(fileAtPath: topFilepath)!
+        let topCSV = try! CSVReader(stream: topStream, hasHeaderRow: true)
+        
+        
+        while topCSV.next() != nil {
+            do{
+                try self.db.run(menTop.insert(self.size <- topCSV["size"]!, self.chest <- Int(topCSV["chest"]!)!))
+                //print("top table successfully populated")
+            } catch {
+                print("error populating men-top table")
+            }
+        }
+    }
+    
+    //trouser:
+    func readTrouserFromCSV() {
+        let trouserFilepath = Bundle.main.path(forResource: "men-trouser", ofType: "csv")!
+        let trouserStream = InputStream(fileAtPath: trouserFilepath)!
+        let trouserCSV = try! CSVReader(stream: trouserStream, hasHeaderRow: true)
+        
+        
+        while trouserCSV.next() != nil {
+            do{
+                try self.db.run(menTrouser.insert(self.size <- trouserCSV["size"]!, self.length <- trouserCSV["length"]!, self.waist <- Int(trouserCSV["waist"]!)!, self.innerleg <- Int(trouserCSV["inside leg"]!)!))
+                //print("trouser table successfully populated")
+            } catch {
+                print("error populating men-trouser table")
+            }
+        }
+    }
+    
     func printInConsole() {
-        //bra
+        //bra:
         do{
+            print("bra:")
             let printBra = try db.prepare(self.braTable)
             for braTable in printBra {
                 print("Cup : \(braTable[self.cup]), Bra: \(braTable[self.bra]), Bust (cm): \(braTable[self.bust]), Underbust (cm): \(braTable[self.underbust])")
@@ -153,8 +290,10 @@ class Database {
         } catch {
             print("error printing bra table")
         }
-        //dress
+        
+        //dress:
         do{
+            print("dress:")
             let printDress = try db.prepare(self.dressTable)
             for dressTable in printDress {
                 print("Size : \(dressTable[self.size]), Bust: \(dressTable[self.bust]), Waist: \(dressTable[self.waist]), Hips: \(dressTable[self.hips])")
@@ -162,18 +301,53 @@ class Database {
         } catch {
             print("error printing dress table")
         }
+        
+        //shirt:
+        do{
+            print("shirt:")
+            let printShirt = try db.prepare(self.shirtTable)
+            for shirtTable in printShirt {
+                print("Size : \(shirtTable[self.size]), Chest: \(shirtTable[self.chest]), Neck: \(shirtTable[self.neck])")
+            }
+        } catch {
+            print("error printing shirt table")
+        }
+        
+        //men-top:
+        do{
+            print("top:")
+            let printTop = try db.prepare(self.menTop)
+            for menTop in printTop {
+                print("Size : \(menTop[self.size]), Chest: \(menTop[self.chest])")
+            }
+        } catch {
+            print("error printing men-top table")
+        }
+        
+        //men-trouser:
+        do{
+            print("trouser:")
+            let printTrouser = try db.prepare(self.menTrouser)
+            for menTrouser in printTrouser {
+                print("Size : \(menTrouser[self.size]), Length: \(menTrouser[self.length]), Waist: \(menTrouser[self.waist]), Inner Leg: \(menTrouser[self.innerleg])")
+            }
+        } catch {
+            print("error printing men-trouser table")
+        }
+        
     }
     
+    //garment queries ------------------------------------------------------------------------
+    //bra:
     func queryForBra(bustParam: Int, underBustParam: Int) -> String {
         var returnInfo = "size not found"
         do{
             let braQuery = braTable.select(bra).where(underbust <= underBustParam).order(underbust.desc).limit(1)
-            let cupQuery = braTable.select(cup).where(bust <= bustParam).order(bust.desc).limit(1)
-            
             for braTable in try db.prepare(braQuery){
                 tempBra = braTable[bra]
             }
             
+            let cupQuery = braTable.select(cup).where(bra == tempBra && bust <= bustParam).order(bust.desc).limit(1)
             for braTable in try db.prepare(cupQuery){
                 tempCup = braTable[cup]
             }
@@ -185,7 +359,7 @@ class Database {
         return returnInfo
     }
     
-    //QUERIES
+    //women-top:
     func queryForTop(bustParam: Int, waistParam: Int) -> String {
         var returnInfo = "size not found"
         do{
@@ -215,6 +389,7 @@ class Database {
         return returnInfo
     }
     
+    //dress:
     func queryForDress(waistParam: Int, hipsParam: Int) -> String {
         var returnInfo = "size not found"
         do{
@@ -244,6 +419,7 @@ class Database {
         return returnInfo
     }
     
+    //women-trouser:
     func queryForTrouser(waistParam: Int, hipsParam: Int) -> String {
         var returnInfo = "size not found"
         do{
@@ -272,6 +448,62 @@ class Database {
         
         return returnInfo
     }
+    
+    //shirt:
+    func queryForShirt(chestParam: Int) -> String {
+        var returnInfo = "size not found"
+        do{
+            let chestQuery = shirtTable.select(size).where(chest <= chestParam).order(chest.desc).limit(1)
+            
+            for shirtTable in try db.prepare(chestQuery){
+                shirtTemp = shirtTable[size]
+                print("size: \(shirtTemp)")
+                returnInfo = "Your UK shirt Size is \(shirtTemp)"
+            }
+        } catch {
+            print("could not query men-shirt")
+        }
+        
+        return returnInfo
+    }
+    
+    //men-top:
+    func queryForMenTop(chestParam: Int) -> String {
+        var returnInfo = "size not found"
+        do{
+            let chestQuery = menTop.select(size).where(chest <= chestParam).order(chest.desc).limit(1)
+            
+            for menTop in try db.prepare(chestQuery){
+                topTemp = menTop[size]
+                print("size: \(topTemp)")
+                returnInfo = "Your UK top Size is \(topTemp)"
+            }
+        } catch {
+            print("could not query men-top")
+        }
+        
+        return returnInfo
+    }
+    
+    //men-trouser:
+    func queryForMenTrouser(waistParam: Int) -> String {
+        var returnInfo = "size not found"
+        do{
+            let waistQuery = menTrouser.select(size).where(waist <= waistParam).order(waist.desc).limit(1)
+            
+            for menTrouser in try db.prepare(waistQuery){
+                trouserTemp = menTrouser[size]
+                print("size: \(trouserTemp)")
+                returnInfo = "Your UK trouser Size is \(trouserTemp)"
+            }
+        } catch {
+            print("could not query men-trouser")
+        }
+        
+        return returnInfo
+    }
+
+    
     
 }
 
