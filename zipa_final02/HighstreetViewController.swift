@@ -10,8 +10,8 @@ import UIKit
 
 class HighstreetViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-
-    let global = Global()
+    //connect to global database
+    let database = Database()
     
     @IBOutlet weak var storePicker: UIPickerView!
     @IBOutlet weak var storeLabel: UILabel!
@@ -31,23 +31,104 @@ class HighstreetViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var storePicked = "test"
     
     override func viewDidLoad() {
-        global.addDatabaseToFile()
+        database.addDatabaseToFile()
         super.viewDidLoad()
 
         self.storePicker.delegate = self
         self.storePicker.dataSource = self
+        
+        womenPickerData = [[" ","2","4","6","8","10","12","14","16","18","20","22","24","26","28","30"],[" ","HM","Topshop","Missguided","Boohoo"]]
+        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-       return 1
+       return 2
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 1
+        if gender == true {
+            if component == 0 {
+                return 16
+            } else {
+                return 5
+            }
+        } else {
+            if component == 0 {
+                return 13
+            } else {
+                return 6
+            }
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if gender == true {
+            return womenPickerData[component][row]
+        } else {
+            return menPickerData[component][row]
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if gender == true {
+            if component == 0 {
+                //retrieve user selected UK size
+                sizePicked = womenPickerData[component][row]
+                sizeChangedWOM()
+            } else {
+                storePicked = womenPickerData[component][row]
+                storeLabel.text = storePicked+" :"
+                sizeChangedWOM()
+            }
+        } else {
+            if component == 0 {
+                //retrieve user selected UK size
+                sizePicked = menPickerData[component][row]
+               // sizeChangedMEN()
+            } else {
+                storePicked = menPickerData[component][row]
+                storeLabel.text = storePicked+" :"
+               // sizeChangedMEN()
+            }
+        }
+    }
+    
+    func sizeChangedWOM() {
+        print("ZIPA size selected: \(sizePicked)")
+        if storePicked == "HM" {
+            let hold = database.queryHM(sizeParam: sizePicked)
+            print("HM size generated: \(hold)")
+            sizeLabel.text = hold
+        } else if (storePicked == "Topshop") {
+            let hold = database.queryTopshop(sizeParam: sizePicked)
+            print("Topshop size generated: \(hold)")
+            sizeLabel.text = hold
+        } else if (storePicked == "Missguided") {
+            let hold = database.queryMissguided(sizeParam: sizePicked)
+            print("Missguided size generated: \(hold)")
+            sizeLabel.text = hold
+        } else if (storePicked == "Boohoo") {
+            let hold = database.queryBoohoo(sizeParam: sizePicked)
+            print("Boohoo size generated: \(hold)")
+            sizeLabel.text = hold
+        }
     }
     
     
     @IBAction func womenSelected(_ sender: Any) {
+        gender = true
+        print("women selected: \(gender)")
+        
+        //reset picker to 0
+        storePicker.reloadAllComponents()
+        storePicker.selectRow(0, inComponent: 0, animated: true)
+        storePicker.selectRow(0, inComponent: 1, animated: true)
+        
+        //reset variables
+        sizePicked = " "
+        storePicked = " "
+        storeLabel.text = " "
+        sizeLabel.text = " "
     }
     
     @IBAction func menSelected(_ sender: Any) {

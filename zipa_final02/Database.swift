@@ -62,6 +62,8 @@ class Database {
     var shirtTemp = "test"
     var topTemp = "test"
     var trouserTemp = "test"
+    
+    var womenHSTemp = "test"
 
     //create a file path on users device to stored static database for all garments (men & women)
     //called in ViewDidLoad()
@@ -525,6 +527,67 @@ class Database {
         } catch {
             print("error printing women-highstreet table")
         }
+    }
+    
+    //highstreet - queries
+    //hm:
+    func queryHM(sizeParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let storeQuery = womenHS.select(hm).where(size == sizeParam)
+            for womenHS in try db.prepare(storeQuery){
+                womenHSTemp = womenHS[hm]
+                returnInfo = "In H&M, we recommend a size \(womenHSTemp)"
+            }
+        } catch {
+            print("could not query women-highstreet table")
+        }
+        return returnInfo
+    }
+    
+    //topshop:
+    func queryTopshop(sizeParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let storeQuery = womenHS.select(topshop).where(size == sizeParam)
+            for womenHS in try db.prepare(storeQuery){
+                womenHSTemp = womenHS[topshop]
+                returnInfo = "In Topshop, we recommend a size \(womenHSTemp)"
+            }
+        } catch {
+            print("could not query women-highstreet table")
+        }
+        return returnInfo
+    }
+    
+    //missguided:
+    func queryMissguided(sizeParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let storeQuery = womenHS.select(missguided).where(size == sizeParam)
+            for womenHS in try db.prepare(storeQuery){
+                womenHSTemp = womenHS[missguided]
+                returnInfo = "In Missguided, we recommend a size \(womenHSTemp)"
+            }
+        } catch {
+            print("could not query women-highstreet table")
+        }
+        return returnInfo
+    }
+    
+    //boohoo:
+    func queryBoohoo(sizeParam: String) -> String {
+        var returnInfo = "size not found"
+        do{
+            let storeQuery = womenHS.select(boohoo).where(size == sizeParam)
+            for womenHS in try db.prepare(storeQuery){
+                womenHSTemp = womenHS[boohoo]
+                returnInfo = "In Boohoo, we recommend a size \(womenHSTemp)"
+            }
+        } catch {
+            print("could not query women-highstreet table")
+        }
+        return returnInfo
     }
     
     
