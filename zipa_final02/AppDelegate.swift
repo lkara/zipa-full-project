@@ -27,19 +27,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         database.readDressFromCSV()
         database.readShirtFromCSV()
         database.readTrouserFromCSV()
-        database.printInConsole()
+       // database.printInConsole()
         
         //highstreet:
         database.createHighstreetTables()
         database.womenHSFromCSV()
         database.menHSFromCSV()
-        database.printHS()
+       // database.printHS()
         
         //international:
         database.createIntlTables()
         database.womenIntlFromCSV()
         database.menIntlFromCSV()
-        database.printIntl()
+      //  database.printIntl()
         
         return true
     }

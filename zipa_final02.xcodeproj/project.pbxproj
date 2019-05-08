@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00491CD6228372E2002507DB /* garments.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 006AC2C4227844FF00B1F7FA /* garments.scnassets */; };
 		004B98E62270961D00A8354B /* InternationalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004B98E52270961D00A8354B /* InternationalViewController.swift */; };
 		004B98F92270F10900A8354B /* HighstreetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004B98F82270F10900A8354B /* HighstreetViewController.swift */; };
 		006AC2A9227705B000B1F7FA /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006AC2A8227705B000B1F7FA /* Database.swift */; };
@@ -15,7 +16,11 @@
 		006AC2C122775EE700B1F7FA /* men-trouser.csv in Resources */ = {isa = PBXBuildFile; fileRef = 006AC2BB22775EE600B1F7FA /* men-trouser.csv */; };
 		006AC2C222775EE700B1F7FA /* men-international.csv in Resources */ = {isa = PBXBuildFile; fileRef = 006AC2BC22775EE600B1F7FA /* men-international.csv */; };
 		006AC2C322775EE700B1F7FA /* women-dress.csv in Resources */ = {isa = PBXBuildFile; fileRef = 006AC2BD22775EE600B1F7FA /* women-dress.csv */; };
-		006AC2C5227844FF00B1F7FA /* garments.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 006AC2C4227844FF00B1F7FA /* garments.scnassets */; };
+		00944A0A2281989C00FF422F /* ARStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00944A092281989C00FF422F /* ARStatusViewController.swift */; };
+		00944A122282FC7F00FF422F /* TryItOnAR.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00944A112282FC7F00FF422F /* TryItOnAR.storyboard */; };
+		00944A162283066D00FF422F /* GarmentSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00944A152283066D00FF422F /* GarmentSelectionViewController.swift */; };
+		00944A182283083A00FF422F /* GarmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00944A172283083A00FF422F /* GarmentTableViewController.swift */; };
+		00944A1E22833EB600FF422F /* CustomNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00944A1D22833EB600FF422F /* CustomNavigation.swift */; };
 		00C2DDBD2270FCBF00225FFC /* AugmentedRealityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C2DDBC2270FCBF00225FFC /* AugmentedRealityViewController.swift */; };
 		00CE4AAC227EEE770062A85D /* men-shirt2.csv in Resources */ = {isa = PBXBuildFile; fileRef = 00CE4AAB227EEE770062A85D /* men-shirt2.csv */; };
 		00CE4AB2227F0C550062A85D /* women-highstreet.csv in Resources */ = {isa = PBXBuildFile; fileRef = 00CE4AB1227F0C550062A85D /* women-highstreet.csv */; };
@@ -53,6 +58,11 @@
 		006AC2BC22775EE600B1F7FA /* men-international.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "men-international.csv"; path = "zipa_final02/Garment Data/men-international.csv"; sourceTree = SOURCE_ROOT; };
 		006AC2BD22775EE600B1F7FA /* women-dress.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "women-dress.csv"; path = "zipa_final02/Garment Data/women-dress.csv"; sourceTree = SOURCE_ROOT; };
 		006AC2C4227844FF00B1F7FA /* garments.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = garments.scnassets; sourceTree = "<group>"; };
+		00944A092281989C00FF422F /* ARStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARStatusViewController.swift; sourceTree = "<group>"; };
+		00944A112282FC7F00FF422F /* TryItOnAR.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = TryItOnAR.storyboard; path = ../Resources/TryItOnAR.storyboard; sourceTree = "<group>"; };
+		00944A152283066D00FF422F /* GarmentSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarmentSelectionViewController.swift; sourceTree = "<group>"; };
+		00944A172283083A00FF422F /* GarmentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarmentTableViewController.swift; sourceTree = "<group>"; };
+		00944A1D22833EB600FF422F /* CustomNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomNavigation.swift; path = "View Controllers/CustomNavigation.swift"; sourceTree = "<group>"; };
 		00C2DDBC2270FCBF00225FFC /* AugmentedRealityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityViewController.swift; sourceTree = "<group>"; };
 		00CE4AAB227EEE770062A85D /* men-shirt2.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "men-shirt2.csv"; sourceTree = "<group>"; };
 		00CE4AB1227F0C550062A85D /* women-highstreet.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "women-highstreet.csv"; sourceTree = "<group>"; };
@@ -109,10 +119,21 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		009D018E2275059100B3F9D9 /* View Controllers */ = {
+		00944A082281974700FF422F /* AR */ = {
 			isa = PBXGroup;
 			children = (
 				00C2DDBC2270FCBF00225FFC /* AugmentedRealityViewController.swift */,
+				00944A152283066D00FF422F /* GarmentSelectionViewController.swift */,
+				00944A172283083A00FF422F /* GarmentTableViewController.swift */,
+				00944A092281989C00FF422F /* ARStatusViewController.swift */,
+				00944A112282FC7F00FF422F /* TryItOnAR.storyboard */,
+			);
+			path = AR;
+			sourceTree = "<group>";
+		};
+		009D018E2275059100B3F9D9 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				004B98F82270F10900A8354B /* HighstreetViewController.swift */,
 				004B98E52270961D00A8354B /* InternationalViewController.swift */,
 				00E6D64D226F44BB003A1201 /* FemaleUserViewController.swift */,
@@ -142,10 +163,12 @@
 		00E6D5D6226C9439003A1201 /* zipa_final02 */ = {
 			isa = PBXGroup;
 			children = (
+				00944A082281974700FF422F /* AR */,
 				006AC2B722775ECA00B1F7FA /* Garment Data */,
 				006AC2A8227705B000B1F7FA /* Database.swift */,
 				00E6D5D7226C9439003A1201 /* AppDelegate.swift */,
 				00E6D5D9226C9439003A1201 /* ViewController.swift */,
+				00944A1D22833EB600FF422F /* CustomNavigation.swift */,
 				006AC2C72278604100B1F7FA /* Resources */,
 				009D018E2275059100B3F9D9 /* View Controllers */,
 				00E6D5E3226C943E003A1201 /* Info.plist */,
@@ -231,18 +254,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				006AC2C5227844FF00B1F7FA /* garments.scnassets in Resources */,
+				00491CD6228372E2002507DB /* garments.scnassets in Resources */,
+				00E6D5DF226C943E003A1201 /* Assets.xcassets in Resources */,
 				006AC2C322775EE700B1F7FA /* women-dress.csv in Resources */,
 				006AC2BE22775EE700B1F7FA /* women-international.csv in Resources */,
 				00CE4AAC227EEE770062A85D /* men-shirt2.csv in Resources */,
-				00E6D5E2226C943E003A1201 /* LaunchScreen.storyboard in Resources */,
 				00CE4AB2227F0C550062A85D /* women-highstreet.csv in Resources */,
 				006AC2C022775EE700B1F7FA /* women-bra.csv in Resources */,
 				006AC2C222775EE700B1F7FA /* men-international.csv in Resources */,
 				00CE4AB4227F1F580062A85D /* men-highstreet.csv in Resources */,
-				00E6D5DF226C943E003A1201 /* Assets.xcassets in Resources */,
-				00E6D5DD226C9439003A1201 /* Main.storyboard in Resources */,
 				006AC2C122775EE700B1F7FA /* men-trouser.csv in Resources */,
+				00944A122282FC7F00FF422F /* TryItOnAR.storyboard in Resources */,
+				00E6D5DD226C9439003A1201 /* Main.storyboard in Resources */,
+				00E6D5E2226C943E003A1201 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,9 +326,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00944A182283083A00FF422F /* GarmentTableViewController.swift in Sources */,
 				00E6D644226CDB83003A1201 /* MaleUserViewController.swift in Sources */,
+				00944A0A2281989C00FF422F /* ARStatusViewController.swift in Sources */,
+				00944A1E22833EB600FF422F /* CustomNavigation.swift in Sources */,
 				00C2DDBD2270FCBF00225FFC /* AugmentedRealityViewController.swift in Sources */,
 				00E6D5DA226C9439003A1201 /* ViewController.swift in Sources */,
+				00944A162283066D00FF422F /* GarmentSelectionViewController.swift in Sources */,
 				004B98E62270961D00A8354B /* InternationalViewController.swift in Sources */,
 				00E6D5D8226C9439003A1201 /* AppDelegate.swift in Sources */,
 				006AC2A9227705B000B1F7FA /* Database.swift in Sources */,
