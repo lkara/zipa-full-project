@@ -14,6 +14,9 @@ class AugmentedRealityViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet weak var sceneView: ARSCNView!
     
+    
+    var detectedPlanes: [String : SCNNode] = [:]
+    
     var caseTemp = "shirt"
     
     @IBOutlet weak var messageLabel: UILabel!
@@ -29,6 +32,7 @@ class AugmentedRealityViewController: UIViewController, ARSCNViewDelegate {
     var planeNodes = [SCNNode]()
     
     var lastObjectPlacedPoint: CGPoint?
+    let config = ARWorldTrackingConfiguration()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,17 +46,17 @@ class AugmentedRealityViewController: UIViewController, ARSCNViewDelegate {
         sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
         sceneView.showsStatistics = true
         sceneView.autoenablesDefaultLighting = true
+        sceneView.automaticallyUpdatesLighting = true
         
         // Gestures
         let tapGesure = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        sceneView.addGestureRecognizer(tapGesure) 
+        sceneView.addGestureRecognizer(tapGesure)
         
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //will determine the configurations of the scene session
-        let config = ARWorldTrackingConfiguration()
         config.planeDetection = .horizontal
         sceneView.session.run(config)
     }
@@ -81,6 +85,22 @@ class AugmentedRealityViewController: UIViewController, ARSCNViewDelegate {
             addTrouserModel(position: position)
         }
         
+        
+    }
+    
+    @objc func scaleObject(gesture: UIPinchGestureRecognizer) {
+        
+        guard let nodeToScale = selectedNode else { return }
+        if gesture.state == .changed {
+            
+            let pinchScaleX: CGFloat = gesture.scale * CGFloat((nodeToScale.scale.x))
+            let pinchScaleY: CGFloat = gesture.scale * CGFloat((nodeToScale.scale.y))
+            let pinchScaleZ: CGFloat = gesture.scale * CGFloat((nodeToScale.scale.z))
+            nodeToScale.scale = SCNVector3Make(Float(pinchScaleX), Float(pinchScaleY), Float(pinchScaleZ))
+            gesture.scale = 1
+            
+        }
+        if gesture.state == .ended { }
         
     }
     
@@ -203,38 +223,119 @@ class AugmentedRealityViewController: UIViewController, ARSCNViewDelegate {
             lastObjectPlacedPoint = point
         }
     }
+
+    @IBOutlet weak var togglePlaneButton: UIButton!
+    @IBAction func hide_showButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+        
+
+        if let image = UIImage(named: "addPressed.png") {
+            togglePlaneButton.setImage(image, for: .normal)
+        }
+
+
+            
+        showPlaneOverlay = !showPlaneOverlay
+        
+    }
+    var showPlaneOverlay = false {
+        didSet {
+            for node in planeNodes {
+                node.isHidden = !showPlaneOverlay
+            }
+        }
+    }
+   
+    func nodeAdded(_ node: SCNNode, for anchor: ARPlaneAnchor) {
+        let floor = createFloor(planeAnchor: anchor)
+        floor.isHidden = !showPlaneOverlay
+        
+        node.addChildNode(floor)
+        planeNodes.append(floor)
+    }
+
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        // 1
-        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
-        
-        // 2
-        let width = CGFloat(planeAnchor.extent.x)
-        let height = CGFloat(planeAnchor.extent.z)
-        let plane = SCNPlane(width: width, height: height)
-        
-        // 3
-        plane.materials.first?.diffuse.contents = UIColor.blue
-        
-        // 4
-        let planeNode = SCNNode(geometry: plane)
-        
-        // 5
-        let x = CGFloat(planeAnchor.center.x)
-        let y = CGFloat(planeAnchor.center.y)
-        let z = CGFloat(planeAnchor.center.z)
-        planeNode.position = SCNVector3(x,y,z)
-        planeNode.eulerAngles.x = -.pi / 2
-        
-        // 6
-        node.addChildNode(planeNode)
+    if let imageAnchor = anchor as? ARImageAnchor {
+            nodeAdded(node, for: imageAnchor)
+        } else if let planeAnchor = anchor as? ARPlaneAnchor {
+            nodeAdded(node, for: planeAnchor)
+        }
         
     }
     
+    func createFloor(planeAnchor: ARPlaneAnchor) -> SCNNode {
+        let node = SCNNode()
+        let geometry = SCNPlane(width:
+            CGFloat(planeAnchor.extent.x), height:
+            CGFloat(planeAnchor.extent.z))
+        
+        node.geometry = geometry
+        node.eulerAngles.x = -Float.pi / 2
+        node.opacity = 0.25
+        return node
+    }
+    
+    func reloadConfiguration() {
+        config.planeDetection = .horizontal
+        config.detectionImages = (objectMode == .trouser) ?
+            ARReferenceImage.referenceImages(inGroupNamed:
+                "AR Resources", bundle: nil) : nil
+        sceneView.session.run(config)
+    }
+   
+    
+    func nodeAdded(_ node: SCNNode, for anchor: ARImageAnchor) {
+        if let selectedNode = selectedNode {
+            addNode(selectedNode, toImageUsingParentNode: node)
+        }
+    }
+    
+    func addNode(_ node: SCNNode, toImageUsingParentNode parentNode:
+        SCNNode) {
+        let cloneNode = node.clone()
+        parentNode.addChildNode(cloneNode)
+        placedNodes.append(cloneNode)
+    }
     
     
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        // 1
+        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+        // 2
+        guard let planeNode = detectedPlanes[planeAnchor.identifier.uuidString] else { return }
+        let planeGeometry = planeNode.geometry as! SCNPlane
+        planeGeometry.width = CGFloat(planeAnchor.extent.x)
+        planeGeometry.height = CGFloat(planeAnchor.extent.z)
+        planeNode.position = SCNVector3Make(planeAnchor.center.x,
+                                            planeAnchor.center.y,
+                                            planeAnchor.center.z)
+    }
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //create an extension of the view controller
 extension AugmentedRealityViewController: GarmentSelectionViewControllerDelegate {
@@ -252,6 +353,18 @@ extension AugmentedRealityViewController: GarmentSelectionViewControllerDelegate
 
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 extension UIViewController {
     

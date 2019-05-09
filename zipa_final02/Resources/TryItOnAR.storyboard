@@ -27,9 +27,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="add"/>
                                 <connections>
-                                    <segue destination="wwH-eI-L08" kind="popoverPresentation" identifier="showOptions" popoverAnchorView="isw-Dq-Oqu" id="3e7-3i-41t">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
+                                    <action selector="hide_showButton:" destination="dX5-Ff-c91" eventType="touchUpInside" id="JYR-ER-T3S"/>
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BaJ-hK-2e7">
@@ -76,6 +74,7 @@
                         <outlet property="messageLabel" destination="ynU-lu-5Fg" id="HQr-cq-Kuw"/>
                         <outlet property="restartExperience" destination="cIs-Vn-CxT" id="aIy-N6-dfX"/>
                         <outlet property="sceneView" destination="Xy1-eh-aNb" id="D08-sR-cDz"/>
+                        <outlet property="togglePlaneButton" destination="isw-Dq-Oqu" id="e6i-M8-OU3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4zH-D2-57I" userLabel="First Responder" sceneMemberID="firstResponder"/>
