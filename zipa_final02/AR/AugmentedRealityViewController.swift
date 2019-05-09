@@ -39,6 +39,8 @@ class AugmentedRealityViewController: UIViewController, ARSCNViewDelegate {
         
         messageLabel.text = "Initializing..."
         
+        
+        
         // Create a new scene
         let scene = SCNScene()
         sceneView.scene = scene
@@ -84,6 +86,7 @@ class AugmentedRealityViewController: UIViewController, ARSCNViewDelegate {
             print("trouser selected")
             addTrouserModel(position: position)
         }
+    
         
         
     }
@@ -226,18 +229,25 @@ class AugmentedRealityViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet weak var togglePlaneButton: UIButton!
     @IBAction func hide_showButton(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-        
-
-        if let image = UIImage(named: "addPressed.png") {
-            togglePlaneButton.setImage(image, for: .normal)
+        showPlane()
+        if showPlaneOverlay == false {
+            if let image = UIImage(named: "add.png") {
+                togglePlaneButton.setImage(image, for: .normal)
+            }
+        } else {
+            if let image = UIImage(named: "addPressed.png") {
+                togglePlaneButton.setImage(image, for: .normal)
+            }
         }
-
-
-            
-        showPlaneOverlay = !showPlaneOverlay
-        
     }
+    
+    func showPlane() {
+        dismiss(animated: true, completion: nil)
+        showPlaneOverlay = !showPlaneOverlay
+    }
+    
+    
+    
     var showPlaneOverlay = false {
         didSet {
             for node in planeNodes {
