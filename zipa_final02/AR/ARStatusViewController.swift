@@ -10,8 +10,13 @@ import UIKit
 
 class ARStatusViewController: UIViewController {
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let name = statusUpdate {
+            messageLabel.text = name
+        }
 
         // Do any additional setup after loading the view.
     }
@@ -30,7 +35,11 @@ class ARStatusViewController: UIViewController {
     }
     
     @IBOutlet weak var messagePanel: UIVisualEffectView!
+    
     @IBOutlet weak var messageLabel: UILabel!
+    var statusUpdate: String?
+    
+    
     @IBOutlet weak var restartExperience: UIButton!
     
 

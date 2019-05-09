@@ -19,30 +19,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xy1-eh-aNb">
-                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </arscnView>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x2h-Cf-5by">
-                                <rect key="frame" x="0.0" y="64" width="414" height="110"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="P6d-QA-Nuf" kind="embed" id="Yh3-0f-chA"/>
-                                </connections>
-                            </containerView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3xS-46-BOZ">
-                                <rect key="frame" x="20" y="600" width="239" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Freeform"/>
-                                    <segment title="Plane"/>
-                                    <segment title="Image"/>
-                                </segments>
-                                <connections>
-                                    <action selector="changeObjectMode:" destination="dX5-Ff-c91" eventType="valueChanged" id="nRN-BG-QJc"/>
-                                </connections>
-                            </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="isw-Dq-Oqu">
-                                <rect key="frame" x="316" y="590" width="48" height="48"/>
+                                <rect key="frame" x="298" y="591" width="48" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="add"/>
                                 <connections>
@@ -51,36 +32,32 @@
                                     </segue>
                                 </connections>
                             </button>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="5KD-sT-9iQ"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="gkr-tV-1bh"/>
-                    <connections>
-                        <outlet property="sceneView" destination="Xy1-eh-aNb" id="D08-sR-cDz"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4zH-D2-57I" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-226.08695652173915" y="-15.489130434782609"/>
-        </scene>
-        <!--Status View Controller-->
-        <scene sceneID="yRk-sa-cGn">
-            <objects>
-                <viewController id="P6d-QA-Nuf" customClass="ARStatusViewController" customModule="zipa_final02" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5VP-4r-QCc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BaJ-hK-2e7">
+                                <rect key="frame" x="40" y="602" width="199" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Shirt"/>
+                                    <segment title="Dress"/>
+                                    <segment title="Trousers"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeObjectMode:" destination="dX5-Ff-c91" eventType="valueChanged" id="dfu-oj-JTH"/>
+                                </connections>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIs-Vn-CxT">
+                                <rect key="frame" x="298" y="46" width="48" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="restart"/>
+                            </button>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6eH-78-fNX">
-                                <rect key="frame" x="20" y="32" width="137" height="47"/>
+                                <rect key="frame" x="40" y="46" width="195" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="fXT-aV-96g">
-                                    <rect key="frame" x="0.0" y="0.0" width="137" height="47"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="195" height="47"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ynU-lu-5Fg">
-                                            <rect key="frame" x="8" y="13" width="121" height="21"/>
+                                            <rect key="frame" x="7" y="13" width="180" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -90,23 +67,20 @@
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIs-Vn-CxT">
-                                <rect key="frame" x="339" y="32" width="55" height="47"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="restart"/>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="Tre-Cd-kkm"/>
+                        <viewLayoutGuide key="safeArea" id="5KD-sT-9iQ"/>
                     </view>
+                    <navigationItem key="navigationItem" id="gkr-tV-1bh"/>
                     <connections>
-                        <outlet property="messageLabel" destination="ynU-lu-5Fg" id="ATw-Xm-MMi"/>
-                        <outlet property="messagePanel" destination="6eH-78-fNX" id="g1S-sp-Yj7"/>
+                        <outlet property="messageLabel" destination="ynU-lu-5Fg" id="HQr-cq-Kuw"/>
+                        <outlet property="restartExperience" destination="cIs-Vn-CxT" id="aIy-N6-dfX"/>
+                        <outlet property="sceneView" destination="Xy1-eh-aNb" id="D08-sR-cDz"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NIi-ON-JSG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4zH-D2-57I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="587" y="-334"/>
+            <point key="canvasLocation" x="-226.08695652173915" y="-15.489130434782609"/>
         </scene>
         <!--Garment Selection View Controller-->
         <scene sceneID="Aaa-Sv-k1g">

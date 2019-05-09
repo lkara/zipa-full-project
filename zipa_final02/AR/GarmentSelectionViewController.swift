@@ -52,7 +52,7 @@ class GarmentSelectionViewController: UIViewController, UINavigationControllerDe
             return fileEnumerator.compactMap { element in
                 let url = element as! URL
                 
-                guard url.pathExtension == "scn" else { return nil }
+                guard url.pathExtension == "dae" else { return nil }
                 
                 return url.lastPathComponent
             }
@@ -61,7 +61,7 @@ class GarmentSelectionViewController: UIViewController, UINavigationControllerDe
         let options = availableScenes.map { Option(name: $0, option: $0, showsDisclosureIndicator: false) }
         let selector = GarmentTableViewController(options: options)
         selector.optionSelectionCallback = { [unowned self] name in
-            let nameWithoutExtension = name.replacingOccurrences(of: ".scn", with: "")
+            let nameWithoutExtension = name.replacingOccurrences(of: ".dae", with: "")
             let scene = SCNScene(named: "\(resourceFolder)/\(nameWithoutExtension)/\(name)")!
             print("garment path: \(resourceFolder)/\(nameWithoutExtension)/\(name), scene path: \(scene)")
             self.delegate?.objectSelected(node: scene.rootNode)

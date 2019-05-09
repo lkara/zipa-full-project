@@ -13,38 +13,46 @@ import SceneKit
 class AugmentedRealityViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet weak var sceneView: ARSCNView!
-    //will determine the configurations of the scene session
-    let config = ARWorldTrackingConfiguration()
+    
+    var caseTemp = "shirt"
+    
+    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var restartExperience: UIButton!
     
     enum ObjectPlacementMode {
-        case freeform, plane, image
+        case shirt, dress, trouser
     }
+    var objectMode: ObjectPlacementMode = .shirt
     
     var selectedNode: SCNNode?
     var placedNodes = [SCNNode]()
     var planeNodes = [SCNNode]()
     
-    
-    var objectMode: ObjectPlacementMode = .freeform
-    
     var lastObjectPlacedPoint: CGPoint?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        messageLabel.text = "Initializing..."
+        
         // Create a new scene
         let scene = SCNScene()
         sceneView.scene = scene
-        sceneView.showsStatistics = true
         sceneView.delegate = self
+        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
+        sceneView.showsStatistics = true
         sceneView.autoenablesDefaultLighting = true
         
         // Gestures
         let tapGesure = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        sceneView.addGestureRecognizer(tapGesure)
+        sceneView.addGestureRecognizer(tapGesure) 
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //will determine the configurations of the scene session
+        let config = ARWorldTrackingConfiguration()
         config.planeDetection = .horizontal
         sceneView.session.run(config)
     }
@@ -54,6 +62,27 @@ class AugmentedRealityViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
+    @objc func handleTap(gesture: UITapGestureRecognizer) {
+        let location = gesture.location(in: sceneView)
+        guard let hitTestResult = sceneView.hitTest(location, types: .existingPlane).first else { return }
+        let position = SCNVector3Make(hitTestResult.worldTransform.columns.3.x,
+                                      hitTestResult.worldTransform.columns.3.y,
+                                      hitTestResult.worldTransform.columns.3.z)
+       
+        print("location: \(location)")
+        if (objectMode == .shirt){
+            print("shirt selected")
+            addShirtModel(position: position)
+        } else if (objectMode == .dress){
+            print("dress selected")
+            addDressModel(position: position)
+        } else {
+            print("trouser selected")
+            addTrouserModel(position: position)
+        }
+        
+        
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showOptions" {
@@ -62,20 +91,26 @@ class AugmentedRealityViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
-    @objc func handleTap(gesture: UITapGestureRecognizer) {
-        let location = gesture.location(in: sceneView)
-        guard let hitTestResult = sceneView.hitTest(location, types: .existingPlane).first else { return }
-        let position = SCNVector3Make(hitTestResult.worldTransform.columns.3.x,
-                                      hitTestResult.worldTransform.columns.3.y,
-                                      hitTestResult.worldTransform.columns.3.z)
-        print("location: \(location)")
-       
-        addGarmentModelTo(position: position)
+    //3D asset - shirt
+    func addShirtModel(position: SCNVector3) {
+        // 1
+        guard let ShirtScene = SCNScene(named: "garments.scnassets/checkShirt/checkShirt.dae") else {
+            fatalError("Unable to find shirt")
+        }
+        // 2
+        guard let baseNode = ShirtScene.rootNode.childNode(withName: "baseNode", recursively: true) else {
+            fatalError("Unable to find base node - shirt")
+        }
+        // 3
+        baseNode.position = position
+        baseNode.scale = SCNVector3Make(0.05, 0.05, 0.05)
+        sceneView.scene.rootNode.addChildNode(baseNode)
     }
     
-    func addGarmentModelTo(position: SCNVector3) {
+    //3D asset - dress
+    func addDressModel(position: SCNVector3) {
         // 1
-        guard let DressScene = SCNScene(named: "garments.scnassets/Tshirt/checkShirt.dae") else {
+        guard let DressScene = SCNScene(named: "garments.scnassets/Dress/Dress.scn") else {
             fatalError("Unable to find statue")
         }
         // 2
@@ -84,7 +119,23 @@ class AugmentedRealityViewController: UIViewController, ARSCNViewDelegate {
         }
         // 3
         baseNode.position = position
-        baseNode.scale = SCNVector3Make(0.5, 0.5, 0.5)
+        baseNode.scale = SCNVector3Make(0.0005, 0.0005, 0.0005)
+        sceneView.scene.rootNode.addChildNode(baseNode)
+    }
+    
+    //3D asset - trouser
+    func addTrouserModel(position: SCNVector3) {
+        // 1
+        guard let TrouserScene = SCNScene(named: "garments.scnassets/Jeans/Jeans.scn") else {
+            fatalError("Unable to find statue")
+        }
+        // 2
+        guard let baseNode = TrouserScene.rootNode.childNode(withName: "baseNode", recursively: true) else {
+            fatalError("Unable to find base node")
+        }
+        // 3
+        baseNode.position = position
+        baseNode.scale = SCNVector3Make(0.0005, 0.0005, 0.0005)
         sceneView.scene.rootNode.addChildNode(baseNode)
     }
     
@@ -92,15 +143,16 @@ class AugmentedRealityViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func changeObjectMode(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            objectMode = .freeform
+            objectMode = .shirt
         case 1:
-            objectMode = .plane
+            objectMode = .dress
         case 2:
-            objectMode = .image
+            objectMode = .trouser
         default:
             break
         }
     }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event:
         UIEvent?) {
@@ -109,12 +161,11 @@ class AugmentedRealityViewController: UIViewController, ARSCNViewDelegate {
             touches.first else { return }
         
         switch objectMode {
-        case .freeform:
+        case .shirt:
             addNodeInFront(node)
-        case .plane:
-            let touchPoint = touch.location(in: sceneView)
-            addNode(node, toPlaneUsingPoint: touchPoint)
-        case .image:
+        case .dress:
+            break
+        case .trouser:
             break
         }
     }
@@ -152,6 +203,34 @@ class AugmentedRealityViewController: UIViewController, ARSCNViewDelegate {
             lastObjectPlacedPoint = point
         }
     }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        // 1
+        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+        
+        // 2
+        let width = CGFloat(planeAnchor.extent.x)
+        let height = CGFloat(planeAnchor.extent.z)
+        let plane = SCNPlane(width: width, height: height)
+        
+        // 3
+        plane.materials.first?.diffuse.contents = UIColor.blue
+        
+        // 4
+        let planeNode = SCNNode(geometry: plane)
+        
+        // 5
+        let x = CGFloat(planeAnchor.center.x)
+        let y = CGFloat(planeAnchor.center.y)
+        let z = CGFloat(planeAnchor.center.z)
+        planeNode.position = SCNVector3(x,y,z)
+        planeNode.eulerAngles.x = -.pi / 2
+        
+        // 6
+        node.addChildNode(planeNode)
+        
+    }
+    
     
     
 
