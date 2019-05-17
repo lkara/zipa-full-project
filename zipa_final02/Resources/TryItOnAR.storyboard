@@ -42,37 +42,21 @@
                                     <action selector="changeObjectMode:" destination="dX5-Ff-c91" eventType="valueChanged" id="dfu-oj-JTH"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIs-Vn-CxT">
-                                <rect key="frame" x="298" y="46" width="48" height="47"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5w4-Dx-5Lx">
+                                <rect key="frame" x="40" y="65" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="restart"/>
+                                <state key="normal" image="exit"/>
+                                <connections>
+                                    <action selector="resetScene" destination="dX5-Ff-c91" eventType="touchUpInside" id="NvW-2A-8HH"/>
+                                </connections>
                             </button>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6eH-78-fNX">
-                                <rect key="frame" x="40" y="46" width="195" height="47"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="fXT-aV-96g">
-                                    <rect key="frame" x="0.0" y="0.0" width="195" height="47"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ynU-lu-5Fg">
-                                            <rect key="frame" x="7" y="13" width="180" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </view>
-                                <blurEffect style="light"/>
-                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="5KD-sT-9iQ"/>
                     </view>
                     <navigationItem key="navigationItem" id="gkr-tV-1bh"/>
                     <connections>
-                        <outlet property="messageLabel" destination="ynU-lu-5Fg" id="HQr-cq-Kuw"/>
-                        <outlet property="restartExperience" destination="cIs-Vn-CxT" id="aIy-N6-dfX"/>
+                        <outlet property="exitButton" destination="5w4-Dx-5Lx" id="ffW-A1-iIG"/>
                         <outlet property="sceneView" destination="Xy1-eh-aNb" id="D08-sR-cDz"/>
                         <outlet property="togglePlaneButton" destination="isw-Dq-Oqu" id="e6i-M8-OU3"/>
                     </connections>
@@ -100,6 +84,6 @@
     </scenes>
     <resources>
         <image name="add" width="48" height="48"/>
-        <image name="restart" width="20" height="23"/>
+        <image name="exit" width="50" height="50"/>
     </resources>
 </document>
